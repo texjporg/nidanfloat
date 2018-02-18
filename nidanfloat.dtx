@@ -16,24 +16,24 @@
 % \StopEventually{}
 %
 % \iffalse
-% \changes{v1.10}{1994/04/07}{platex2.09$BMQ(B}
-% \changes{v2.2}{1997/10/22}{platex2e$BMQ$K=$@5(B}
-% \changes{v2.3}{2000/12/20}{$B0lCJH4$-$N%U%m!<%H$r:.$<$k$H%(%i!<$K(B
-%    $B$J$k$N$r=$@5!J$"$j$,$H$&!"ARBt!w(BQUIPU$B$5$s!K(B}
-% \changes{v2.4}{2001/02/19}{$B:G=*%Z!<%8$G:81&$N9T4V$,B7$o$J$$ItJ,$r=$@5(B}
-% \changes{v2.4}{2001/02/19}{$BCl$,=P$J$$$N$r=$@5(B}
-% \changes{v2.4}{2001/07/23}{$B%Z!<%8$NBg$-$5$,>.$5$/$J$k$N$r=$@5(B}
-% \changes{v2.5}{2001/09/14}{$B%Q%C%1!<%8%*%W%7%g%s(B(balance,nobalance)$B$rDI2C(B}
-% \changes{v2.6}{2003/05/15}{\cs{@fstype}$B$r(B\cs{@fstyle}$B$H%?%$%W%_%9$7$F$$$?(B
-%    $B$N$r=$@5!J$"$j$,$H$&!"@n>e!w9R6u1'Ch8&5f=j$5$s!K(B}
-% \changes{v2.7}{2005/12/09}{$BI,?\%U%)!<%^%C%H%U%!%$%k$r(BpLaTeX2e$B$+$i(BLaTeX2e$B$XJQ99(B}
-% \changes{v2.8}{2017/05/01}{\cs{@rightfixht}$B$rDI2C(B}
-% \changes{v2.8}{2017/05/01}{\cs{@outputbox}$B$r:n$k$H$-$N(B
-%    \texttt{to \cs{@fixht}}$B$N9b$5;XDj$r$d$a$?(B}
-% \changes{v2.8}{2017/05/01}{\cs{vss}$B$N0LCV$r0\F0(B}
-% \changes{v2.8}{2017/05/01}{$B1&%+%i%`MQ$N=hM}$r4]$4$HDI2C(B}
-% \changes{v2.8}{2017/05/01}{$B1&%+%i%`$G$O(B\cs{@rightfixht}$B$N9b$5$G(B
-%    $BAH$_N)$F!"(B\cs{@colht}$B$b99?7$9$k$h$&$K$7$?(B}
+% \changes{v1.10}{1994/04/07}{platex2.09用}
+% \changes{v2.2}{1997/10/22}{platex2e用に修正}
+% \changes{v2.3}{2000/12/20}{一段抜きのフロートを混ぜるとエラーに
+%    なるのを修正（ありがとう、倉沢＠QUIPUさん）}
+% \changes{v2.4}{2001/02/19}{最終ページで左右の行間が揃わない部分を修正}
+% \changes{v2.4}{2001/02/19}{柱が出ないのを修正}
+% \changes{v2.4}{2001/07/23}{ページの大きさが小さくなるのを修正}
+% \changes{v2.5}{2001/09/14}{パッケージオプション(balance,nobalance)を追加}
+% \changes{v2.6}{2003/05/15}{\cs{@fstype}を\cs{@fstyle}とタイプミスしていた
+%    のを修正（ありがとう、川上＠航空宇宙研究所さん）}
+% \changes{v2.7}{2005/12/09}{必須フォーマットファイルをpLaTeX2eからLaTeX2eへ変更}
+% \changes{v2.8}{2017/05/01}{\cs{@rightfixht}を追加}
+% \changes{v2.8}{2017/05/01}{\cs{@outputbox}を作るときの
+%    \texttt{to \cs{@fixht}}の高さ指定をやめた}
+% \changes{v2.8}{2017/05/01}{\cs{vss}の位置を移動}
+% \changes{v2.8}{2017/05/01}{右カラム用の処理を丸ごと追加}
+% \changes{v2.8}{2017/05/01}{右カラムでは\cs{@rightfixht}の高さで
+%    組み立て、\cs{@colht}も更新するようにした}
 % \fi
 %
 % \iffalse
@@ -48,11 +48,11 @@
 %<*driver>
 \documentclass{jltxdoc}
 \GetFileInfo{nidanfloat.dtx}
-\title{TOP, BOTTOM$B;XDj$,2DG=$J#2CJH4$-%U%m!<%H(B\\
-  $B%P!<%8%g%s(B \space\fileversion}
-\date{$B:n@.F|!'(B\filedate}
-\author{$BCfLn(B $B8-(B\footnote{$B3t<02q<R(B $B%"%9%-!<(B $B=PHG5;=QIt(B
-  $B!J%a!<%k%"%I%l%9!'(Bken-na at ascii.co.jp$B!K(B}}
+\title{TOP, BOTTOM指定が可能な２段抜きフロート\\
+  バージョン \space\fileversion}
+\date{作成日：\filedate}
+\author{中野 賢\footnote{株式会社 アスキー 出版技術部
+  （メールアドレス：ken-na at ascii.co.jp）}}
 \begin{document}
   \maketitle
   \DocInput{\filename}
@@ -60,10 +60,10 @@
 %</driver>
 % \fi
 %
-% \file{nidanfloat}$B%Q%C%1!<%8$O!"FsCJAH;~$KCJH4$-$N%U%m!<%H$r%Z!<%82<It$K$b(B
-% $BG[CV2DG=$K$9$k!#$b$H$b$H(Bp\LaTeX{}$B$N0lIt$H$7$FG[I[$5$l$F$$$^$7$?$,!"(B
-% $BA4$F$N%U%)!<%^%C%H$r%5%]!<%H$G$-$k$3$H$+$i!"(B
-% 2018$BG/0J9_$OFHN)$7$FG[I[$9$k$3$H$K$7$^$7$?!#(B
+% \file{nidanfloat}パッケージは、二段組時に段抜きのフロートをページ下部にも
+% 配置可能にする。もともとp\LaTeX{}の一部として配布されていましたが、
+% 全てのフォーマットをサポートできることから、
+% 2018年以降は独立して配布することにしました。
 %
 %\iffalse
 % The package \textsf{nidanfloat} enables bottom (|b|) placement option
@@ -76,16 +76,16 @@
 % [TODO] This package needs adjustment for \LaTeXe\ 2015/01/01 changes
 % of the float order in two column mode!
 %
-% \section{$B%3!<%I(B}
+% \section{コード}
 %
-% \subsection{$B%Q%C%1!<%8%*%W%7%g%s(B}
-% \changes{v2.5}{2001/09/14}{$B%Q%C%1!<%8%*%W%7%g%s$rDI2C(B}
-% \file{nidanfloat}$B%Q%C%1!<%8$G$O!":G=*%Z!<%8$N:81&%+%i%`$N9b$5$r(B
-% $B6Q0l$K?6$jJ,$1$k$h$&$K$7$F$$$k!#$7$+$7!"$3$N5!G=$N1F6A$K$h$j!"(B
-% $B:G=*%Z!<%8$G$N(B|\newpage|$B$H(B|\clearpage|$B%3%^%s%I$,@5$7$/F0:n$7$J$$!#(B
-% $B$=$3$G!"$3$N5!G=$r;H$&$+$I$&$+$r;XDj$9$k%*%W%7%g%s$rF3F~$7$?!#(B
-% $B%Q%C%1!<%8;XDj;~$K%*%W%7%g%s(B``balance''$B$r;XDj$9$k$H!"(B
-% $B:G=*%Z!<%8$N<+F0D4@0$r9T$J$&$h$&$K$J$k!#%G%U%)%k%H$G$O9T$J$o$J$$!#(B
+% \subsection{パッケージオプション}
+% \changes{v2.5}{2001/09/14}{パッケージオプションを追加}
+% \file{nidanfloat}パッケージでは、最終ページの左右カラムの高さを
+% 均一に振り分けるようにしている。しかし、この機能の影響により、
+% 最終ページでの|\newpage|と|\clearpage|コマンドが正しく動作しない。
+% そこで、この機能を使うかどうかを指定するオプションを導入した。
+% パッケージ指定時にオプション``balance''を指定すると、
+% 最終ページの自動調整を行なうようになる。デフォルトでは行なわない。
 %    \begin{macrocode}
 %<*core>
 \DeclareOption{balance}{\AtEndDocument{\let\clearpage\balanceclearpage}}
@@ -94,22 +94,22 @@
 \ProcessOptions
 %    \end{macrocode}
 %
-% \subsection{$B%U%m!<%H%Q%i%a!<%?(B}
-% $B$3$3$G$O!"CJH4$-$N%U%m!<%H$r%Z!<%82<It$KCV$/$?$a$K:n@.$7$?%Q%i%a!<%?$K(B
-% $B$D$$$F@bL@$r$9$k!#(B
+% \subsection{フロートパラメータ}
+% ここでは、段抜きのフロートをページ下部に置くために作成したパラメータに
+% ついて説明をする。
 %
 % \begin{macro}{\dblbotfraction}
-% $B#2CJAH;~$K%Z!<%82<It$K@j$a$k$3$H$N$G$-$k!"FsCJH4$-%U%m!<%H$N3d9g!#(B
-% $B%G%U%)%k%H$O(B0.5$B!"$9$J$o$A%Z!<%8H>J,$r@j$a$k$3$H$,$G$-$k$h$&$K$7$F$$$k!#(B
+% ２段組時にページ下部に占めることのできる、二段抜きフロートの割合。
+% デフォルトは0.5、すなわちページ半分を占めることができるようにしている。
 %    \begin{macrocode}
 \newcommand\dblbotfraction{0.5}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\c@dblbotnumber}
-% $B%Z!<%82<It$KF~$l$k$3$H$N$G$-$k!"FsCJH4$-%U%m!<%H$N?t!#(B
-% $B%G%U%)%k%H$G$O!"Fs$D$N?^$rCV$/$3$H$,$G$-$k$h$&$K$7$F$$$k!#(B
-% |\c@dblbotnumber|$B$O%+%&%s%?(B|dblnumber|$B$NFbIt7A<0!#(B
+% ページ下部に入れることのできる、二段抜きフロートの数。
+% デフォルトでは、二つの図を置くことができるようにしている。
+% |\c@dblbotnumber|はカウンタ|dblnumber|の内部形式。
 %    \begin{macrocode}
 \newcount\c@dblbotnumber
 \setcounter{dblbotnumber}{2}
@@ -118,10 +118,10 @@
 %
 % \begin{macro}{\@dblbotroom}
 % \begin{macro}{\@dblbotnum}
-% |\@dblbotroom|$B$O!"%Z!<%82<It$K@j$a$k$3$H$N$G$-$k!"(B
-% $BFsCJH4$-%U%m!<%H$N3d9g$r<($9D9$5JQ?t!#(B
-% |\@dblbotnum|$B$O!"%Z!<%82<It$KF~$l$k$3$H$N$G$-$k!"(B
-% $BFsCJH4$-%U%m!<%H$N?t$rJ];}$9$k%+%&%s%?!#(B
+% |\@dblbotroom|は、ページ下部に占めることのできる、
+% 二段抜きフロートの割合を示す長さ変数。
+% |\@dblbotnum|は、ページ下部に入れることのできる、
+% 二段抜きフロートの数を保持するカウンタ。
 %    \begin{macrocode}
 \newdimen\@dblbotroom
 \newcount\@dblbotnum
@@ -130,8 +130,8 @@
 % \end{macro}
 %
 % \begin{macro}{\@dblfloatplacement}
-% $BFsCJAHMQ$N%U%m!<%H%Q%i%a!<%?$r@_Dj$9$k%^%/%m$r!"?7$?$KDI2C$7$?%Q%i%a!<%?(B
-% $B$b@_Dj$9$k$h$&$K:FDj5A$9$k!#(B
+% 二段組用のフロートパラメータを設定するマクロを、新たに追加したパラメータ
+% も設定するように再定義する。
 %    \begin{macrocode}
 \def\@dblfloatplacement{%
    \global\@dbltopnum\c@dbltopnumber
@@ -149,25 +149,25 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsection{$B%U%m!<%H%j%9%H$X$NEPO?(B}
-% $BFsCJH4$-%U%m!<%H$NDj5A$O!"%/%i%9%U%!%$%k$G!"$D$.$N$h$&$K$7$F9T$J$o$l$k!#(B
+% \subsection{フロートリストへの登録}
+% 二段抜きフロートの定義は、クラスファイルで、つぎのようにして行なわれる。
 %\begin{verbatim}
 %    \newenvironment{figure*}
 %                   {\@dblfloat{figure}}
 %                   {\end@dblfloat}
 %\end{verbatim}
-% $BJ8>OCf$G(B|figure*|$B4D6-$G0O$^$l$?ItJ,$O!"%U%m!<%HJ];}MQ$N%j%9%H$KEPO?$5$l$k!#(B
-% $B$3$N@a$G$O!"CJH4$-%U%m!<%H$r%Z!<%82<It$K$bCV$1$k$h$&$K$9$k$?$a$K3HD%$7$?(B
-% $B%^%/%m$K$D$$$F@bL@$r$9$k!#(B
+% 文章中で|figure*|環境で囲まれた部分は、フロート保持用のリストに登録される。
+% この節では、段抜きフロートをページ下部にも置けるようにするために拡張した
+% マクロについて説明をする。
 %
 % \begin{macro}{\@dblbotlist}
 % \begin{macro}{\L@toplist}
 % \begin{macro}{\R@toplist}
 % \begin{macro}{\L@botlist}
 % \begin{macro}{\R@botlist}
-% $BFsCJAH$N%Z!<%82<It$KCV$/%U%m!<%H$rJ];}$9$k$?$a$K(B|\@dblbotlist|$B$rDI2C$9$k!#(B
-% $B$^$?!"%+%i%`$N>e2<$KCV$/%U%m!<%HMQ$K$O!":8B&$H1&B&$G6hJL$r$9$k$?$a!"(B
-% |\L@toplist|, |\R@toplist|, |\L@botlist|, |\R@botlist|$B$rDI2C$9$k!#(B
+% 二段組のページ下部に置くフロートを保持するために|\@dblbotlist|を追加する。
+% また、カラムの上下に置くフロート用には、左側と右側で区別をするため、
+% |\L@toplist|, |\R@toplist|, |\L@botlist|, |\R@botlist|を追加する。
 %    \begin{macrocode}
 \gdef\@dblbotlist{}
 \gdef\L@toplist{}
@@ -184,9 +184,9 @@
 % \begin{macro}{\@dblfloat}
 % \begin{macro}{\@dbflt}
 % \begin{macro}{\end@dblfloat}
-% |\@dblfloat|$B$+$i8F$S=P$5$l$k!"(B|\@dbflt|$B$r:FDj5A$7!"0LCV;XDj$,>JN,$5$l$?(B
-% $B$H$-$N%Q%i%a!<%?$r(B``tb''$B$H$9$k!#$^$?!"(B|\end@dblfloat|$B$r(B|\end@float|$B$K$7$F!"(B
-% $B8=:_%Z!<%8$N2<It$K%U%m!<%H$rCV$1$k$h$&$K$9$k!#(B
+% |\@dblfloat|から呼び出される、|\@dbflt|を再定義し、位置指定が省略された
+% ときのパラメータを``tb''とする。また、|\end@dblfloat|を|\end@float|にして、
+% 現在ページの下部にフロートを置けるようにする。
 %    \begin{macrocode}
 \def\@dblfloat{%
   \if@twocolumn\let\reserved@a\@dbflt\else\let\reserved@a\@float\fi
@@ -201,25 +201,25 @@
 % \end{macro}
 %
 % \begin{macro}{\addtocurcol}
-% |\@xdblfloat|$B$+$i8F$S=P$5$l$?!"(B|\@xfloat|$B$O0LCV;XDj%*%W%7%g%s$NI>2A$r9T$J$$!"(B
-% $B%U%m!<%H%*%V%8%'%/%H$NAH$_N)$F$r3+;O$9$k!#(B
-% $B%U%m!<%H%*%V%8%'%/%H$NAH$_N)$F$O(B|\end@float|$B$G=*N;$9$k!#(B
-% |\end@float|$B$O!"%Z%J%k%F%#CM$r(B$-10004$$B$K$7$F(B|\output|$B%k!<%A%s$r5/F0$9$k!#(B
-% $B$3$NCM$G$N(B|\output|$B%k!<%A%s$O(B|\@specialoutput|$B$r5/F0$9$k!#(B
-% |\@specialoutput|$B$O(B|\@addtocurcol|$B$r8F$S=P$7!"%U%m!<%H$NFbMF$r8=:_%Z!<%8$K(B
-% $B=PNO$G$-$k$N$J$i$P=PNO$r$9$k!#$=$&$G$J$1$l$P!"JL$N2DG=@-$rC5$k!#(B
+% |\@xdblfloat|から呼び出された、|\@xfloat|は位置指定オプションの評価を行ない、
+% フロートオブジェクトの組み立てを開始する。
+% フロートオブジェクトの組み立ては|\end@float|で終了する。
+% |\end@float|は、ペナルティ値を$-10004$にして|\output|ルーチンを起動する。
+% この値での|\output|ルーチンは|\@specialoutput|を起動する。
+% |\@specialoutput|は|\@addtocurcol|を呼び出し、フロートの内容を現在ページに
+% 出力できるのならば出力をする。そうでなければ、別の可能性を探る。
 %    \begin{macrocode}
 \def\@addtocurcol{%
 %    \end{macrocode}
-% $B$3$N%Q%C%1!<%8$N>l9g!"CJH4$-$N%U%m!<%H$,EO$5$l$k2DG=@-$,$"$k$N$G!"$^$:!"(B
-% $B$=$l$r%A%'%C%/$9$k!#%U%m!<%H$NI}$,%+%i%`I}$h$j$bBg$-$$>l9g$O!"6/@)E*$K(B
-% $BCJH4$-%U%m!<%H$H$7$F07$&!#(B
+% このパッケージの場合、段抜きのフロートが渡される可能性があるので、まず、
+% それをチェックする。フロートの幅がカラム幅よりも大きい場合は、強制的に
+% 段抜きフロートとして扱う。
 %    \begin{macrocode}
   \ifdim\wd\@currbox>\columnwidth
     \@addtodblcol
   \else
 %    \end{macrocode}
-% $B$=$l0J30$N>l9g$O!"85$NF0:n$H$[$H$s$IF1$8$G$"$k!#(B
+% それ以外の場合は、元の動作とほとんど同じである。
 %    \begin{macrocode}
     \@insertfalse
     \@setfloattypecounts
@@ -239,7 +239,7 @@
             \if@test
             \else
 %    \end{macrocode}
-% $B%Z!<%82<It$N%U%m!<%H$rJ];}$7$F$$$k%U%m!<%H%j%9%H$NL>A0$,0[$J$k!#(B
+% ページ下部のフロートを保持しているフロートリストの名前が異なる。
 %    \begin{macrocode}
               \@bitor\@currtype{\L@botlist\R@botlist}%
               \if@test
@@ -282,9 +282,9 @@
 % \end{macro}
 %
 % \begin{macro}{\@addtotoporbot}
-% $B%U%m!<%H$rJ];}$7$F$$$k%j%9%HJQ?t$N=$@5!#(B
+% フロートを保持しているリスト変数の修正。
 % \changes{v2.3}{2000/12/20}{%
-%    $B%?%$%W%_%9$N=$@5$H(B\cs{@flcheckspace}$B$N8F$S=P$7$rJQ99(B}
+%    タイプミスの修正と\cs{@flcheckspace}の呼び出しを変更}
 %    \begin{macrocode}
 \def\@addtotoporbot{%
   \@getfpsbit \tw@
@@ -312,8 +312,8 @@
 % \end{macro}
 %
 % \begin{macro}{\@addtobot}
-% $B%U%m!<%H$rJ];}$7$F$$$k%j%9%HJQ?t$N=$@5!#(B
-% \changes{v2.3}{2000/12/20}{\cs{@flcheckspace}$B$N8F$S=P$7$rJQ99(B}
+% フロートを保持しているリスト変数の修正。
+% \changes{v2.3}{2000/12/20}{\cs{@flcheckspace}の呼び出しを変更}
 %    \begin{macrocode}
 \def\@addtobot{%
   \@getfpsbit 4\relax
@@ -339,9 +339,9 @@
 %
 % \begin{macro}{\org@addtonextcol}
 % \begin{macro}{\@addtonextcol}
-% $BA^F~$K<:GT$7$?%U%m!<%H$d(B`p'$B;XDj$N%U%m!<%H$r=PNO$9$k$N$K!"(B
-% |\@startcolumn|$B$GMQ$$$i$l$k!#$3$N%Q%C%1!<%8$G$O!"%+%i%`I}$h$j$bBg$-$$I}$r(B
-% $B;}$D%U%m!<%H$KBP$7$F$O!"CJH4$-%U%m!<%H%j%9%H$H$7$F=PNO$9$k$h$&$K$7$F$$$k!#(B
+% 挿入に失敗したフロートや`p'指定のフロートを出力するのに、
+% |\@startcolumn|で用いられる。このパッケージでは、カラム幅よりも大きい幅を
+% 持つフロートに対しては、段抜きフロートリストとして出力するようにしている。
 %    \begin{macrocode}
 \let\org@addtonextcol\@addtonextcol
 \def\@addtonextcol{%
@@ -356,13 +356,13 @@
 % \end{macro}
 %
 % \begin{macro}{\@addtodblcol}
-% |\@addtodblcol|$B%^%/%m$O!"%U%m!<%H%*%V%8%'%/%H$,8=:_%Z!<%8$KF~$k$+$I$&$+(B
-% $B$r3NG'$7!"F~$k$N$G$"$l$P(B|\@addtodbltoporbot|$B$r8F$S=P$9!#$=$&$G$J$1$l$P!"(B
-% |\@dbldeferlist|$B$KEPO?$9$k!#(B
+% |\@addtodblcol|マクロは、フロートオブジェクトが現在ページに入るかどうか
+% を確認し、入るのであれば|\@addtodbltoporbot|を呼び出す。そうでなければ、
+% |\@dbldeferlist|に登録する。
 %
-% $B$^$:(B|@insert|$B%U%i%0$r56$K$9$k!#$=$7$F!"%U%m!<%H%?%$%W$r(B|\@fpstype|$B$KF@$k!#(B
-% $B%U%m!<%H%?%$%W$,(B8$B$^$?$O(B24$B$N>l9g!"0LCV%*%W%7%g%s$O(B`!p'$B$+(B`p'$B$@$1$G$"$k$N$G!"(B
-% $BL5>r7o$K(B|\@dbldeferlist|$B$K2C$($k!#(B
+% まず|@insert|フラグを偽にする。そして、フロートタイプを|\@fpstype|に得る。
+% フロートタイプが8または24の場合、位置オプションは`!p'か`p'だけであるので、
+% 無条件に|\@dbldeferlist|に加える。
 %    \begin{macrocode}
 \def\@addtodblcol{%
   \begingroup
@@ -373,10 +373,10 @@
     \ifnum\@fpstype=24 % is only `p'
     \else
 %    \end{macrocode}
-% $B$=$&$G$J$1$l$P!"F1%?%$%W$N%U%m!<%H$GL$=PNO$N$b$N$,$"$k$+$I$&$+$r3NG'$9$k!#(B
-% $BF1%?%$%W$N%U%m!<%H$G$^$@=PNO$7$F$$$J$$$b$N$,$"$k>l9g$O!"8=:_$N%U%m!<%H$r(B
-% $B=PNO$7$J$$!#$?$@$7!"F1%?%$%W$G$"$C$F$b%+%i%`I}$N%U%m!<%H$K$D$$$F$O9MN8(B
-% $B$7$J$$!#=PNO$9$k$3$H$,$G$-$k$N$J$i$P!"(B|\@addtodblbotortop|$B$r8F$S=P$9!#(B
+% そうでなければ、同タイプのフロートで未出力のものがあるかどうかを確認する。
+% 同タイプのフロートでまだ出力していないものがある場合は、現在のフロートを
+% 出力しない。ただし、同タイプであってもカラム幅のフロートについては考慮
+% しない。出力することができるのならば、|\@addtodblbotortop|を呼び出す。
 %    \begin{macrocode}
       \@bitor\@currtype{\@dbldeferlist}
       %\@bitor\@currtype{\@deferlist\@dbldeferlist}
@@ -397,7 +397,7 @@
 % \end{macro}
 %
 % \begin{macro}{\@addtodbltoporbot}
-% $B$^$:!"(B`t'$B$N;XDj$,$"$k$+$H!"%Z!<%8>eIt$KF~$l$k?t$r1[$($F$$$J$$$+$r3NG'$9$k!#(B
+% まず、`t'の指定があるかと、ページ上部に入れる数を越えていないかを確認する。
 %    \begin{macrocode}
 \def\@addtodbltoporbot{%
   \@getfpsbit \tw@
@@ -405,22 +405,22 @@
     \@flsetnum\@dbltopnum
     \ifnum\@dbltopnum>\z@
 %    \end{macrocode}
-% $B$=$7$F!"%Z!<%8>eIt$"$k$$$O2<It$KF1%?%$%W$N%U%m!<%H$,=PNO$5$l$k2DG=@-$,(B
-% $B$"$k$N$+$rD4$Y$k!#FsCJAH%U%m!<%H$O0lCJAH%U%m!<%H$N>eIt$KCV$+$l$k$3$H$KCm0U!#(B
+% そして、ページ上部あるいは下部に同タイプのフロートが出力される可能性が
+% あるのかを調べる。二段組フロートは一段組フロートの上部に置かれることに注意。
 %    \begin{macrocode}
       \@bitor\@currtype{%
          \L@toplist\R@toplist\L@botlist\R@botlist\@dblbotlist}
       \if@test
       \else
 %    \end{macrocode}
-% $BG[CV2DG=$J$i$P!"=PNO$9$k$@$1$N%9%Z!<%9$,$"$k$N$+$r3NG'$9$k!#(B
+% 配置可能ならば、出力するだけのスペースがあるのかを確認する。
 %    \begin{macrocode}
         \@tempswafalse
         \@dblflcheckspace \@dbltoproom \@dbltoplist
 %    \end{macrocode}
-% $B%9%Z!<%9$,$"$l$P!"CJH4$-%U%m!<%H$,>eIt$K@j$a$k$3$H$N$G$-$k9b$5$+$i!"(B
-% $B$=$NJ,$r0z$/!#$^$?!">eIt$KF~$l$kCJH4$-%U%m!<%H$N?t$r8:$i$7!"(B
-% $B>eItCJH4$-MQ$N%U%m!<%H%j%9%H$KEPO?$r$9$k!#(B
+% スペースがあれば、段抜きフロートが上部に占めることのできる高さから、
+% その分を引く。また、上部に入れる段抜きフロートの数を減らし、
+% 上部段抜き用のフロートリストに登録をする。
 %    \begin{macrocode}
         \if@tempswa
           \@tempdima-\ht\@currbox
@@ -430,14 +430,14 @@
           \global\advance\@dbltopnum\m@ne
           \@cons\@dbltoplist\@currbox
 %    \end{macrocode}
-% $B:8%+%i%`$N$H$-$O!"%+%i%`$N9b$5(B|\@colroom|$B$+$i%U%m!<%HJ,$r0z$/!#(B
+% 左カラムのときは、カラムの高さ|\@colroom|からフロート分を引く。
 %    \begin{macrocode}
           \if@firstcolumn
             \advance\@colroom\@tempdima
             \global\advance\@colroom\maxdepth
 %    \end{macrocode}
-% $B1&%+%i%`$N$H$-$O!"?75,$NCJH4$-%U%m!<%HJ,$@$1$G$J$/!"$3$l$rA^F~$9$k$3$H(B
-% $B$K$h$C$F!":8%+%i%`$+$i0\F0$7$F$/$k%F%-%9%H$N9b$5$b0z$/!#(B
+% 右カラムのときは、新規の段抜きフロート分だけでなく、これを挿入すること
+% によって、左カラムから移動してくるテキストの高さも引く。
 %    \begin{macrocode}
           \else
             \@tempdima\textheight
@@ -450,7 +450,7 @@
             \global\advance\@colroom-\dp\z@
           \fi
 %    \end{macrocode}
-% $B:G8e$K!"(B|@insert|$B%U%i%0$r??$K$9$k!#(B
+% 最後に、|@insert|フラグを真にする。
 %    \begin{macrocode}
           \@inserttrue
         \fi
@@ -463,9 +463,9 @@
 % \end{macro}
 %
 % \begin{macro}{\@addtodblbot}
-% $B%Z!<%82<It$KCJH4$-%U%m!<%H$rCV$/$H$-$b!">eIt$HF1$8$G$"$k!#(B
-% $B$?$@$7!"FsCJAH%U%m!<%H$O:G2<It$KCV$+$l$k$N$G!"B>$N=PNOMQ%j%9%H$rD4$Y$k(B
-% $BI,MW$O$J$$$3$H$,0[$J$k!#(B
+% ページ下部に段抜きフロートを置くときも、上部と同じである。
+% ただし、二段組フロートは最下部に置かれるので、他の出力用リストを調べる
+% 必要はないことが異なる。
 %    \begin{macrocode}
 \def\@addtodblbot{%
   \@getfpsbit 4\relax
@@ -501,17 +501,17 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsection{$B%U%m!<%H$N9b$5$r7W;;$9$k%^%/%m(B}
+% \subsection{フロートの高さを計算するマクロ}
 %
 % \begin{macro}{\@floatht}
-% |\@floatht|$B$O!"=PNO%j%9%H$K3JG<$5$l$F$$$k%U%m!<%H$N9b$5$r3JG<$9$k$N$KMQ$$$k!#(B
+% |\@floatht|は、出力リストに格納されているフロートの高さを格納するのに用いる。
 %    \begin{macrocode}
 \global\newdimen\@floatht \@floatht\z@
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@flcheckspace}
-% \changes{v2.3}{2000/12/20}{$B>u67JL$K>l9g$o$1$9$k$h$&$K$7$?(B}
+% \changes{v2.3}{2000/12/20}{状況別に場合わけするようにした}
 %    \begin{macrocode}
 \def \@flcheckspace #1#2#3#4{%
    \advance \@reqcolroom
@@ -538,9 +538,9 @@
 % \end{macro}
 %
 % \begin{macro}{\@dblflcheckspace}
-% $BCJH4$-%U%m!<%H$,%Z!<%8>eIt$"$k$$$O2<It$K@j$a$k$3$H$N$G$-$k3d9g$r1[$($F(B
-% $B$$$J$$$+$r%A%'%C%/$9$k!#1[$($F$$$J$1$l$P(B|\@tempswa|$B$r??$K$9$k!#(B
-% \changes{v2.6}{2003/05/15}{\cs{@fstype}$B$r(B\cs{@fstyle}$B$H%?%$%W%_%9$7$F$$$?(B}
+% 段抜きフロートがページ上部あるいは下部に占めることのできる割合を越えて
+% いないかをチェックする。越えていなければ|\@tempswa|を真にする。
+% \changes{v2.6}{2003/05/15}{\cs{@fstype}を\cs{@fstyle}とタイプミスしていた}
 %    \begin{macrocode}
 \def\@dblflcheckspace#1#2{%
   \@tempdima=#1\relax
@@ -561,12 +561,12 @@
 % \end{macro}
 %
 % \begin{macro}{\@checkdblspace}
-% $BCJH4$-%U%m!<%H$HCJH4$-%U%m!<%H4V%9%Z!<%9!J$"$k$$$OCJH4$-%U%m!<%H$H%F%-%9%H$H(B
-% $B$N4V$N%9%Z!<%9!K$rF~$l$kM>M5$,$"$k$+$rD4$Y$k!#(B
+% 段抜きフロートと段抜きフロート間スペース（あるいは段抜きフロートとテキストと
+% の間のスペース）を入れる余裕があるかを調べる。
 %
-% $B$^$:!"8=:_!"AH$_N)$F$F$"$k%F%-%9%H$N9b$5$H!":G>.8BF~$i$J$/$F$O$J$i$J$$(B
-% $B%F%-%9%H$NNL$H$rHf3S$7!"Bg$-$$$[$&$r(B|\@tempdima|$B$K3JG<$9$k!#(B
-% $B1&%+%i%`$K$$$k$H$-$O!":8%+%i%`$N%F%-%9%H$N9b$5$b2C$($k!#(B
+% まず、現在、組み立ててあるテキストの高さと、最小限入らなくてはならない
+% テキストの量とを比較し、大きいほうを|\@tempdima|に格納する。
+% 右カラムにいるときは、左カラムのテキストの高さも加える。
 %    \begin{macrocode}
 \def\@checkdblspace{%
    \@tempdima\@pageht\advance\@tempdima\@pagedp
@@ -577,23 +577,23 @@
      \advance\@tempdima\dp\@leftcolumn
    \fi
 %    \end{macrocode}
-% $B$=$7$F!"=PNO$9$kM=Dj$N%+%i%`I}%U%m!<%H$HCJH4$-%U%m!<%H$N9b$5$r2C$($k!#(B
-% $B$3$N$H$-!"CJH4$-MQ$N%U%m!<%H$N9b$5$OFsG\$9$k!#(B
+% そして、出力する予定のカラム幅フロートと段抜きフロートの高さを加える。
+% このとき、段抜き用のフロートの高さは二倍する。
 %    \begin{macrocode}
    \L@chkfloatht\advance\@tempdima\@floatht
    \R@chkfloatht\advance\@tempdima\@floatht
    \@chkdblfloatht\advance\@tempdima\tw@\@floatht
 %    \end{macrocode}
-% $B$=$l$+$i!"8=:_$N%U%m!<%H$N9b$5$HI,MW$J%9%Z!<%9$r2C$($k!#(B
-% $B$3$N$H$-$b!"$=$l$i$N9b$5$rFsG\$9$k!#(B
+% それから、現在のフロートの高さと必要なスペースを加える。
+% このときも、それらの高さを二倍する。
 %    \begin{macrocode}
    \@tempdimb\ht\@currbox\advance\@tempdimb\dp\@currbox
    \advance\@tempdimb
       \ifdim\@floatht>\z@ \dbltextfloatsep\else\dblfloatsep\fi
    \multiply\@tempdimb\tw@ \advance\@tempdima\@tempdimb
 %    \end{macrocode}
-% $B$3$l$i$9$Y$F$NMWAGJ,$N9b$5$,(B|\textheight|$B$N#2G\$h$j$b>.$5$1$l$P!"(B
-% $B8=:_$N%U%m!<%H$rCV$/$3$H$,$G$-$k$HH=CG$9$k!#(B
+% これらすべての要素分の高さが|\textheight|の２倍よりも小さければ、
+% 現在のフロートを置くことができると判断する。
 %    \begin{macrocode}
    \ifdim\@tempdima>\tw@\textheight
      \@tempswafalse
@@ -606,9 +606,9 @@
 %
 % \begin{macro}{\tmp@comflelt}
 % \begin{macro}{\tmp@comdblflelt}
-% $B=PNO%j%9%H$K3JG<$5$l$F$$$k%U%m!<%H$N9b$5$r7W$k$?$a$KMQ$$$k!#(B
-% $B$=$l$>$l!"(B|\@comfelt|, |\@comdblflelt|$B$HF1$8$@$,!"%U%m!<%H$NFbMF$,(B
-% $B<:$o$l$J$$$h$&$K(B|\copy|$B$r$7$F$$$k$N$,0[$J$k!#(B
+% 出力リストに格納されているフロートの高さを計るために用いる。
+% それぞれ、|\@comfelt|, |\@comdblflelt|と同じだが、フロートの内容が
+% 失われないように|\copy|をしているのが異なる。
 %    \begin{macrocode}
 \def\tmp@comflelt#1{%
   \setbox\@tempboxa
@@ -624,8 +624,8 @@
 %
 % \begin{macro}{\L@chkfloatht}
 % \begin{macro}{\R@chkfloatht}
-% $B$=$l$>$l!":8%+%i%`$H1&%+%i%`$K=PNO$9$k%U%m!<%H$N9b$5$r7W;;$9$k$N$KMQ$$$k!#(B
-% $B7W;;7k2L$O(B|\@floatht|$B$K3JG<$9$k!#(B
+% それぞれ、左カラムと右カラムに出力するフロートの高さを計算するのに用いる。
+% 計算結果は|\@floatht|に格納する。
 %    \begin{macrocode}
 \def\L@chkfloatht{\@floatht\z@
   \ifx\L@toplist\@empty\else
@@ -666,8 +666,8 @@
 % \end{macro}
 %
 % \begin{macro}{\@chkdblfloatht}
-% $B%Z!<%8>eIt$H2<It$K=PNO$9$kCJH4$-%U%m!<%H$N9b$5$r7W;;$7!"(B
-% $B7k2L$r(B|\@floatht|$B$K3JG<$9$k!#(B
+% ページ上部と下部に出力する段抜きフロートの高さを計算し、
+% 結果を|\@floatht|に格納する。
 %    \begin{macrocode}
 \def\@chkdblfloatht{\@floatht\z@
   \ifx\@dbltoplist\@empty\else
@@ -695,28 +695,28 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsection{$B%U%m!<%H$H%F%-%9%H$N%^!<%8(B}
+% \subsection{フロートとテキストのマージ}
 %
 % \begin{macro}{\@fixht}
-% |\@fixht|$B$O!":8%+%i%`$N9b$5$r3JG<$9$k$N$KMQ$$$k!#(B
+% |\@fixht|は、左カラムの高さを格納するのに用いる。
 %    \begin{macrocode}
 \global\newdimen\@fixht
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@rightfixht}
-% \emph{$BF|K\8l(B\TeX{}$B3+H/%3%_%e%K%F%#$K$h$kDI2C(B}$B!'(B
-% |\@rightfixht|$B$O!"1&%+%i%`$N9b$5$r3JG<$9$k$N$KMQ$$$k!#(B
-% \changes{v2.8}{2017/05/01}{\cs{@rightfixht}$B$rDI2C(B}
+% \emph{日本語\TeX{}開発コミュニティによる追加}：
+% |\@rightfixht|は、右カラムの高さを格納するのに用いる。
+% \changes{v2.8}{2017/05/01}{\cs{@rightfixht}を追加}
 %    \begin{macrocode}
 \global\newdimen\@rightfixht
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@combinefloats}
-% \changes{v2.4}{2001/07/23}{\cs{boxmaxdepth}$B$r(B\cs{maxdepth}$B$K$7$J$$$h$&$K$7$?(B}
-% |\@combinefloats|$B$O!"%+%i%`C10L$G!"%F%-%9%H$H%U%m!<%H$r%^!<%8$9$k!#(B
-% $B$3$N%^%/%m$O1&%+%i%`$N$H$-$K<B9T$9$k!#(B
+% \changes{v2.4}{2001/07/23}{\cs{boxmaxdepth}を\cs{maxdepth}にしないようにした}
+% |\@combinefloats|は、カラム単位で、テキストとフロートをマージする。
+% このマクロは右カラムのときに実行する。
 %    \begin{macrocode}
 \def\@combinefloats{%
   %%\boxmaxdepth\maxdepth
@@ -724,37 +724,37 @@
     \if@firstcolumn
     \else
 %    \end{macrocode}
-% $B:8%+%i%`$N%F%-%9%H!">e2<$N%+%i%`I}%U%m!<%H!">e2<$NCJH4$-%U%m!<%H$N9b$5$N(B
-% $B9g7W$r(B|\@fixht|$B$K3JG<$9$k!#(B
+% 左カラムのテキスト、上下のカラム幅フロート、上下の段抜きフロートの高さの
+% 合計を|\@fixht|に格納する。
 %    \begin{macrocode}
       \@fixht\ht\@leftcolumn \advance\@fixht\dp\@leftcolumn
       \@chkdblfloatht \@tempdima\@floatht
       \L@chkfloatht \advance\@tempdima\@floatht
       \advance\@fixht\@tempdima
 %    \end{macrocode}
-% |\@fixht|$B$N9b$5$,(B|\textheight|$B$h$j$bBg$-$$>l9g!"%F%-%9%H$rJ,3d$7!"F~$i$J$$(B
-% $BItJ,$r1&%+%i%`$K0\$9!#(B
+% |\@fixht|の高さが|\textheight|よりも大きい場合、テキストを分割し、入らない
+% 部分を右カラムに移す。
 %    \begin{macrocode}
       \ifdim\@fixht>\textheight
 %    \end{macrocode}
-% $B:8%+%i%`$K;D$9ItJ,$N9b$5$r(B|\@fixht|$B$K3JG<$9$k!#(B
+% 左カラムに残す部分の高さを|\@fixht|に格納する。
 %    \begin{macrocode}
         \@fixht\textheight
         \advance\@fixht-\@tempdima
         \advance\@fixht\maxdepth
 %    \end{macrocode}
-% |\@fixht|$BJ,$N%F%-%9%H$r%\%C%/%9#0$K3JG<$9$k!#(B
+% |\@fixht|分のテキストをボックス０に格納する。
 %    \begin{macrocode}
         \vbadness=\@M \splittopskip=\topskip \splitmaxdepth=\maxdepth
         \setbox\z@=\vsplit\@leftcolumn to\@fixht
 %    \end{macrocode}
-% $B0\F0$9$kItJ,$O(B|\@leftcolumn|$B$K;D$C$F$$$k$N$G!"(B
-% $B$=$l$r1&%+%i%`!J(B|\@outputbox|$B!K$KF~$l$k!#(B
-% $B$^$?!"%\%C%/%9#0$NFbMF$r:8%+%i%`$KLa$9!#(B
-% \changes{v2.4}{2001/02/19}{$B9T4V$,B7$o$J$$ItJ,$r=$@5(B}
-% \changes{v2.4}{2001/02/19}{$BCl$,=P$J$$$N$r=$@5(B}
-% \changes{v2.8}{2017/05/01}{\cs{@outputbox}$B$r:n$k$H$-$N(B
-%    \texttt{to \cs{@fixht}}$B$N9b$5;XDj$r$d$a$?(B}
+% 移動する部分は|\@leftcolumn|に残っているので、
+% それを右カラム（|\@outputbox|）に入れる。
+% また、ボックス０の内容を左カラムに戻す。
+% \changes{v2.4}{2001/02/19}{行間が揃わない部分を修正}
+% \changes{v2.4}{2001/02/19}{柱が出ないのを修正}
+% \changes{v2.8}{2017/05/01}{\cs{@outputbox}を作るときの
+%    \texttt{to \cs{@fixht}}の高さ指定をやめた}
 %    \begin{macrocode}
         \advance\@fixht-\maxdepth
         \@tempdima\baselineskip \advance\@tempdima-\topskip
@@ -765,31 +765,31 @@
             \fi\relax
             \unvbox\@outputbox}% \vss moved from here
 %    \end{macrocode}
-% \changes{v2.5}{2001/09/14}{\cs{vsplit}$B;~!"(Binfinite$B%(%i!<$K$J$k$N$r=$@5(B}
-% |\@leftcolumn|$B$r:n@.$9$k$H$-$KMQ$$$F$$$?(B|\vss|$B$,(B
+% \changes{v2.5}{2001/09/14}{\cs{vsplit}時、infiniteエラーになるのを修正}
+% |\@leftcolumn|を作成するときに用いていた|\vss|が
 %\begin{verbatim}
 % ! Infinite glue shrinkage found in box being split.
 %\end{verbatim}
-% $B$N%(%i!<$r5/$3$9$3$H$,$"$k$N$G:o=|$7$?!#(B
+% のエラーを起こすことがあるので削除した。
 %
-% \emph{$BF|K\8l(B\TeX{}$B3+H/%3%_%e%K%F%#$K$h$k=$@5(B}$B!'(B
-% $B$3$N>l=j$N$9$0>e$K$"$k%3!<%I$N(B|\unvbox\@outputbox|$B$ND>8e$K$"$C$?(B|vss|$B$r(B
-% $B$3$A$i$K;}$C$F$-$^$7$?!#(B
-% \changes{v2.8}{2017/05/01}{\cs{vss}$B$N0LCV$r0\F0(B}
+% \emph{日本語\TeX{}開発コミュニティによる修正}：
+% この場所のすぐ上にあるコードの|\unvbox\@outputbox|の直後にあった|vss|を
+% こちらに持ってきました。
+% \changes{v2.8}{2017/05/01}{\cs{vss}の位置を移動}
 %    \begin{macrocode}
         \setbox\@leftcolumn=\vbox to\@fixht{\unvbox\z@\vss}% to here (2017/05/01)
       \fi
 %    \end{macrocode}
-% $B:8%+%i%`$N%F%-%9%H%5%$%:$K:8%+%i%`$KF~$k%U%m!<%H$N9b$5$r2C$($k$3$H$G!"(B
-% $B:8%+%i%`$N9b$5$r(B|\@fixht|$B$K3JG<$7$^$9!#(B
+% 左カラムのテキストサイズに左カラムに入るフロートの高さを加えることで、
+% 左カラムの高さを|\@fixht|に格納します。
 %    \begin{macrocode}
       \@fixht\ht\@leftcolumn
         \advance\@fixht\dp\@leftcolumn \advance\@fixht\@floatht
 %    \end{macrocode}
-% \emph{$BF|K\8l(B\TeX{}$B3+H/%3%_%e%K%F%#$K$h$kDI2C(B}$B!'(B
-% $B1&%+%i%`$K$D$$$F$bF1MM$K=hM}$7$^$9!#$3$l$G!"8E$/$+$i$"$C$?(B
-% $B1&%+%i%`$H%U%m!<%H$,=E$J$k%P%0$r2r>C$7$^$7$?!#(B
-% \changes{v2.8}{2017/05/01}{$B1&%+%i%`MQ$N=hM}$r4]$4$HDI2C(B}
+% \emph{日本語\TeX{}開発コミュニティによる追加}：
+% 右カラムについても同様に処理します。これで、古くからあった
+% 右カラムとフロートが重なるバグを解消しました。
+% \changes{v2.8}{2017/05/01}{右カラム用の処理を丸ごと追加}
 %    \begin{macrocode}
       \@rightfixht\ht\@outputbox \advance\@rightfixht\dp\@outputbox
       \@chkdblfloatht \@tempdima\@floatht
@@ -808,7 +808,7 @@
       \@rightfixht\ht\@outputbox
         \advance\@rightfixht\dp\@outputbox \advance\@rightfixht\@floatht
 %    \end{macrocode}
-% $B:81&!"$=$l$>$l%F%-%9%H$H%+%i%`I}%U%m!<%H$rAH$_N)$F$k!#(B
+% 左右、それぞれテキストとカラム幅フロートを組み立てる。
 %    \begin{macrocode}
       \ifx\L@toplist\@empty\else\L@cflt\fi
       \ifx\L@botlist\@empty\else\L@cflb\fi
@@ -816,7 +816,7 @@
       \ifx\R@botlist\@empty\else\R@cflb\fi
     \fi
 %    \end{macrocode}
-% $BFsCJAH$G$J$$$H$-$O=>Mh$I$*$j$NF0:n$r$9$k!#(B
+% 二段組でないときは従来どおりの動作をする。
 %    \begin{macrocode}
   \else
       \ifx\@toplist\@empty\else\@cflt\fi
@@ -830,14 +830,14 @@
 % \begin{macro}{\L@cflb}
 % \begin{macro}{\R@cflt}
 % \begin{macro}{\R@cflb}
-% $B:8%+%i%`$H1&%+%i%`$rAH$_N)$F$k$N$KMQ$$$k!#(B
+% 左カラムと右カラムを組み立てるのに用いる。
 %
-% \emph{$BF|K\8l(B\TeX{}$B3+H/%3%_%e%K%F%#$K$h$kDI2C(B}$B!'(B
-% $B:8%+%i%`$G$O(B|\@fixht|$B!"1&%+%i%`$G$O(B|\@rightfixht|$B$N9b$5$K$J$k$h$&$K(B
-% $B$7$^$9!#$^$?!"(B|\@colht|$B$r$3$l$i$N9b$5$K99?7$7$^$9!#(B
-% \changes{v2.3}{2000/12/20}{\cs{gdef}$B$r(B\cs{global}\cs{let}$B$KJQ99(B}
-% \changes{v2.8}{2017/05/01}{$B1&%+%i%`$G$O(B\cs{@rightfixht}$B$N9b$5$G(B
-%    $BAH$_N)$F!"(B\cs{@colht}$B$b99?7$9$k$h$&$K$7$?(B}
+% \emph{日本語\TeX{}開発コミュニティによる追加}：
+% 左カラムでは|\@fixht|、右カラムでは|\@rightfixht|の高さになるように
+% します。また、|\@colht|をこれらの高さに更新します。
+% \changes{v2.3}{2000/12/20}{\cs{gdef}を\cs{global}\cs{let}に変更}
+% \changes{v2.8}{2017/05/01}{右カラムでは\cs{@rightfixht}の高さで
+%    組み立て、\cs{@colht}も更新するようにした}
 %    \begin{macrocode}
 \def\L@cflt{%
   \let\@elt\@comflelt\setbox\@tempboxa\vbox{}\L@toplist
@@ -886,8 +886,8 @@
 % \end{macro}
 %
 % \begin{macro}{\@combinedblfloats}
-% $B%F%-%9%H$HCJH4$-%U%m!<%H$r%^!<%8$9$k!#$3$N%Q%C%1!<%8$G$O!"%Z!<%82<It$N(B
-% $BCJH4$-%U%m!<%H$b%^!<%8$9$k$h$&$K3HD%$7$F$$$k!#(B
+% テキストと段抜きフロートをマージする。このパッケージでは、ページ下部の
+% 段抜きフロートもマージするように拡張している。
 %    \begin{macrocode}
 %\def\@comdblflelt#1{\setbox\@tempboxa
 %      \vbox{\unvbox\@tempboxa\box#1\vskip\dblfloatsep}}
@@ -923,25 +923,25 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsection{$BFsCJAH$N=PNO(B}
+% \subsection{二段組の出力}
 %
 % \begin{macro}{\if@balance}
-% $B:81&$N%+%i%`$r6QEy$K$7$F=PNO$9$k$+$I$&$+$r<($9%U%i%0!#(B
+% 左右のカラムを均等にして出力するかどうかを示すフラグ。
 %    \begin{macrocode}
 \newif\if@balance \@balancefalse
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@outputdblcol}
-% $B:81&$N%+%i%`$rO"7k$7!"=PNO$9$k$N$O(B|\@outputdblcol|$B$,9T$J$&!#(B
-% $B$3$N%Q%C%1!<%8$G$O!":81&$N%+%i%`$r6QEy$KJ,3d$9$k$?$a$N%k!<%A%s$r2C$($F$"$k!#(B
+% 左右のカラムを連結し、出力するのは|\@outputdblcol|が行なう。
+% このパッケージでは、左右のカラムを均等に分割するためのルーチンを加えてある。
 %    \begin{macrocode}
 \newbox\@combinebox
 %    \end{macrocode}
-% $B:8%+%i%`$rAH$_N)$F$?$@$1$N;~E@$G$O!"$=$l$r(B|\@leftcolumn|$B$K3JG<$9$k$@$1$G(B
-% $B=PNO$O$7$J$$!#(B
-% \changes{v2.4}{2001/02/19}{$B:G=*%Z!<%8$G:81&$N9T4V$,B7$o$J$$ItJ,$r=$@5(B}
-% \changes{v2.4}{2001/02/19}{$BCl$,=P$J$$$N$r=$@5(B}
+% 左カラムを組み立てただけの時点では、それを|\@leftcolumn|に格納するだけで
+% 出力はしない。
+% \changes{v2.4}{2001/02/19}{最終ページで左右の行間が揃わない部分を修正}
+% \changes{v2.4}{2001/02/19}{柱が出ないのを修正}
 %    \begin{macrocode}
 \def\@outputdblcol{%
   \if@firstcolumn
@@ -951,22 +951,25 @@
     \@chkdblfloatht\global\advance\@colht-\@floatht
   \else
     \global\@firstcolumntrue
-    \if@balance % $B:81&%+%i%`$r6QEy$KJ,3d(B
+%    \end{macrocode}
+% ここからが左右カラムを均等に分割するコード。
+%    \begin{macrocode}
+    \if@balance
       \@tempdima\baselineskip
       \advance\@tempdima-\topskip
-      % $BO"7k(B
       \setbox\@combinebox=\vbox{%
           \unvbox\@leftcolumn\vskip\@tempdima\unvbox\@outputbox}%
       \@tempdima\ht\@combinebox
       \advance\@tempdima\dp\@combinebox
       \divide\@tempdima\tw@
-      % $BJ,3d(B
       \vbadness=\@M \splittopskip=\topskip \splitmaxdepth=\maxdepth
       \setbox\@leftcolumn=\vsplit\@combinebox to\@tempdima
       \setbox\@outputbox=\vtop{\unvbox\@combinebox}
       \setbox\@leftcolumn=\vtop{\unvbox\@leftcolumn}
     \fi
-    % $B@07A(B
+%    \end{macrocode}
+% 整形する。
+%    \begin{macrocode}
     \@tempdima\ht\@leftcolumn
     \setbox\@outputbox\vbox to\@tempdima{%
       \hb@xt@\textwidth{%
@@ -994,10 +997,10 @@
 % \end{macro}
 %
 % \begin{macro}{\@startdblcolumn}
-% $BFsCJAH$r3+;O$9$k$H$-!"$^$@=PNO$r$7$F$$$J$$%U%m!<%H$r=PNO$9$k!#(B
-% $B$=$l$i$O(B|\sdblcolelt|$B$rDL$8$F!"(B|\@addtonextcol|$B$G=PNO$5$l$k!#(B
-% $B$3$N%Q%C%1!<%8$G$O!"%+%i%`$N9b$5$r(B|\textheight|$B$+$i%U%m!<%H$N9b$5$r(B
-% $B0z$$$?$b$N$K@_Dj$9$k$h$&$K:FDj5A$9$k!#(B
+% 二段組を開始するとき、まだ出力をしていないフロートを出力する。
+% それらは|\sdblcolelt|を通じて、|\@addtonextcol|で出力される。
+% このパッケージでは、カラムの高さを|\textheight|からフロートの高さを
+% 引いたものに設定するように再定義する。
 %    \begin{macrocode}
 \def\@startdblcolumn{%
   \global\@colht\textheight
@@ -1018,7 +1021,7 @@
 % \end{macro}
 %
 % \begin{macro}{\@doclearpage}
-% $B=PNO%U%m!<%HMQ%j%9%H$N=i4|2=$r$9$k$?$a$K!"(B|\@doclearpage|$B$r:FDj5A$9$k!#(B
+% 出力フロート用リストの初期化をするために、|\@doclearpage|を再定義する。
 %    \begin{macrocode}
 \def\@doclearpage{%
   \ifvoid\footins
@@ -1065,7 +1068,7 @@
 % \end{macro}
 %
 % \begin{macro}{\@topnewpage}
-% |\@dblbotroom|$B$H(B|dblbotnumber|$B$r=i4|2=$9$k$?$a$K(B|\@topnewpage|$B$r:FDj5A$9$k!#(B
+% |\@dblbotroom|と|dblbotnumber|を初期化するために|\@topnewpage|を再定義する。
 %    \begin{macrocode}
 \long\def\@topnewpage[#1]{%
   %\@nodocument
@@ -1116,9 +1119,9 @@
 %
 % \begin{macro}{\balancenewpage}
 % \begin{macro}{\balanceclearpage}
-% $B%F%-%9%H$r6QEy$KJ,3d$7$F=PNO$9$k$?$a$N%^%/%m!#(B
-% $B$?$@$7!"$3$N%^%/%m$rMQ$$$?>l9g!"$=$N%Z!<%8Fb$G$N(B|\newpage|$B$d(B
-% |\clearpage|$B%3%^%s%I$,L58z$K$J$k$3$H$KCm0U!#(B
+% テキストを均等に分割して出力するためのマクロ。
+% ただし、このマクロを用いた場合、そのページ内での|\newpage|や
+% |\clearpage|コマンドが無効になることに注意。
 %    \begin{macrocode}
 \def\balancenewpage{\par\vfil\global\@balancetrue\penalty-\@M}
 \def\balanceclearpage{\balancenewpage

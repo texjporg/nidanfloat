@@ -2,7 +2,7 @@ STRIPTARGET = nidanfloat.sty
 DOCTARGET = nidanfloat
 PDFTARGET = $(addsuffix .pdf,$(DOCTARGET))
 DVITARGET = $(addsuffix .dvi,$(DOCTARGET))
-KANJI = -kanji=jis
+KANJI = -kanji=utf8
 FONTMAP = -f ipaex.map -f ptex-ipaex.map
 TEXMF = $(shell kpsewhich -var-value=TEXMFHOME)
 
@@ -14,9 +14,11 @@ NIDAN = nidanfloat.sty
 
 NIDAN_SRC = nidanfloat.dtx
 
+# for generating files, we use pdflatex incidentally.
+# current packages contain ASCII characters only, safe enough
 nidanfloat.sty: $(NIDAN_SRC)
 	rm -f $(NIDAN)
-	platex $(KANJI) nidanfloat.ins
+	pdflatex nidanfloat.ins
 	rm nidanfloat.log
 
 .SUFFIXES: .dtx .dvi .pdf

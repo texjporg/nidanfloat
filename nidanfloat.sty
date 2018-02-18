@@ -505,22 +505,19 @@
     \@chkdblfloatht\global\advance\@colht-\@floatht
   \else
     \global\@firstcolumntrue
-    \if@balance % 左右カラムを均等に分割
+    \if@balance
       \@tempdima\baselineskip
       \advance\@tempdima-\topskip
-      % 連結
       \setbox\@combinebox=\vbox{%
           \unvbox\@leftcolumn\vskip\@tempdima\unvbox\@outputbox}%
       \@tempdima\ht\@combinebox
       \advance\@tempdima\dp\@combinebox
       \divide\@tempdima\tw@
-      % 分割
       \vbadness=\@M \splittopskip=\topskip \splitmaxdepth=\maxdepth
       \setbox\@leftcolumn=\vsplit\@combinebox to\@tempdima
       \setbox\@outputbox=\vtop{\unvbox\@combinebox}
       \setbox\@leftcolumn=\vtop{\unvbox\@leftcolumn}
     \fi
-    % 整形
     \@tempdima\ht\@leftcolumn
     \setbox\@outputbox\vbox to\@tempdima{%
       \hb@xt@\textwidth{%
