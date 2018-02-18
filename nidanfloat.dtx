@@ -39,6 +39,7 @@
 % \iffalse
 \NeedsTeXFormat{LaTeX2e}
 %<*driver>
+\NeedsTeXFormat{pLaTeX2e}
 \ProvidesFile{nidanfloat.dtx}
 %</driver>
 %<core>\ProvidesPackage{nidanfloat}%
@@ -59,10 +60,21 @@
 %</driver>
 % \fi
 %
-% \begin{abstract}
 % \file{nidanfloat}パッケージは、二段組時に段抜きのフロートをページ下部にも
-% 配置可能にする。
-% \end{abstract}
+% 配置可能にする。もともとp\LaTeX{}の一部として配布されていましたが、
+% 全てのフォーマットをサポートできることから、
+% 2018年以降は独立して配布することにしました。
+%
+%\iffalse
+% The package \textsf{nidanfloat} enables bottom (|b|) placement option
+% for double float in two column mode (\emph{nidan-kumi}).
+% This package was originally part of Japanese \pLaTeX,
+% and now is distributed as a separate package because
+% it supports all \LaTeX\ formats.
+%\fi
+%
+% [TODO] This package needs adjustment for \LaTeXe\ 2015/01/01 changes
+% of the float order in two column mode!
 %
 % \section{コード}
 %
