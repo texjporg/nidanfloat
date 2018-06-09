@@ -19,6 +19,12 @@ See the document (nidanfloat.pdf) for more information.
 The bundle is maintained on GitHub:
 https://github.com/texjporg/nidanfloat
 
+## See Also
+
+[The (UK) TeX FAQ](https://texfaq.github.io/FAQ-2colfloat)
+explains some alternatives to place two-column floats at bottom of page
+(the nidanfloat package is also listed).
+
 ## License
 
 The bundle may be distributed and/or modified under the terms of
