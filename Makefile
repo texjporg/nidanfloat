@@ -1,5 +1,5 @@
 STRIPTARGET = nidanfloat.sty
-DOCTARGET = nidanfloat
+DOCTARGET = nidanfloat nidanfloat-en
 PDFTARGET = $(addsuffix .pdf,$(DOCTARGET))
 DVITARGET = $(addsuffix .dvi,$(DOCTARGET))
 KANJI = -kanji=utf8
@@ -21,8 +21,17 @@ nidanfloat.sty: $(NIDAN_SRC)
 	pdflatex nidanfloat.ins
 	rm nidanfloat.log
 
+nidanfloat-en.dvi: nidanfloat.dtx
+	# built-in echo in shell is troublesome, so use perl instead
+	perl -e "print \"\\\\newif\\\\ifJAPANESE\\n"\" >platex.cfg
+	platex -jobname=nidanfloat-en $(KANJI) nidanfloat.dtx
+	platex -jobname=nidanfloat-en $(KANJI) nidanfloat.dtx
+	rm -f *.aux *.log *.toc
+	rm -f platex.cfg
+
 .SUFFIXES: .dtx .dvi .pdf
 .dtx.dvi:
+	rm -f platex.cfg
 	platex $(KANJI) $<
 	platex $(KANJI) $<
 	rm -f *.aux *.log *.toc

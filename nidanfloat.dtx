@@ -10,6 +10,19 @@
 %
 % \fi
 %
+% \iffalse
+%<*driver>
+\ifx\JAPANESEtrue\undefined
+  \expandafter\newif\csname ifJAPANESE\endcsname
+  \JAPANESEtrue
+\fi
+\def\eTeX{$\varepsilon$-\TeX}
+\def\pTeX{p\kern-.15em\TeX}
+\def\epTeX{$\varepsilon$-\pTeX}
+\def\pLaTeX{p\kern-.05em\LaTeX}
+\def\pLaTeXe{p\kern-.05em\LaTeXe}
+%</driver>
+% \fi
 %
 % \setcounter{StandardModuleDepth}{1}
 %
@@ -48,11 +61,20 @@
 %<*driver>
 \documentclass{jltxdoc}
 \GetFileInfo{nidanfloat.dtx}
+\ifJAPANESE
 \title{TOP, BOTTOM指定が可能な２段抜きフロート\\
   バージョン \space\fileversion}
 \date{作成日：\filedate}
 \author{中野 賢\footnote{株式会社 アスキー 出版技術部
   （メールアドレス：ken-na at ascii.co.jp）}}
+\else
+\title{TOP, BOTTOM specifiable 2 column floats\\
+  Version \fileversion}
+\date{Date：\filedate}
+\author{Ken Nakano\footnote{%
+  Publishing Engineering Department, ASCII Corporation
+  (email: ken-na at ascii.co.jp)}}
+\fi
 \begin{document}
   \maketitle
   \DocInput{\filename}
@@ -60,12 +82,12 @@
 %</driver>
 % \fi
 %
+%\ifJAPANESE
 % \file{nidanfloat}パッケージは、二段組時に段抜きのフロートをページ下部にも
 % 配置可能にする。もともとp\LaTeX{}の一部として配布されていましたが、
 % 全てのフォーマットをサポートできることから、
 % 2018年以降は独立して配布することにしました。
-%
-%\iffalse
+%\else
 % The package \textsf{nidanfloat} enables bottom (|b|) placement option
 % for double float in two column mode (\emph{nidan-kumi}).
 % This package was originally part of Japanese \pLaTeX,
@@ -76,9 +98,19 @@
 % [TODO] This package needs adjustment for \LaTeXe\ 2015/01/01 changes
 % of the float order in two column mode!
 %
+%\ifJAPANESE
 % \section{コード}
+%\else
+% \section{Code}
+%\fi
 %
+%\ifJAPANESE
 % \subsection{パッケージオプション}
+%\else
+% \subsection{Package Options}
+%\fi
+%
+%\ifJAPANESE
 % \changes{v2.5}{2001/09/14}{パッケージオプションを追加}
 % \file{nidanfloat}パッケージでは、最終ページの左右カラムの高さを
 % 均一に振り分けるようにしている。しかし、この機能の影響により、
@@ -86,6 +118,15 @@
 % そこで、この機能を使うかどうかを指定するオプションを導入した。
 % パッケージ指定時にオプション``balance''を指定すると、
 % 最終ページの自動調整を行なうようになる。デフォルトでは行なわない。
+%\else
+% In the \file{nidanfloat} package, the height of the left and right columns
+% of the last page set is designed to be equalised.
+% However, due to the effect of this function, the
+% |\newpage| and |\clearpage| commands on last page do not work properly.
+% We introduced an option to specify whether or not to use this function.
+% If you specify the option `` balance'' when specifying a package,
+% automatic adjustment of last page will be done. It is not done by default.
+%\fi
 %    \begin{macrocode}
 %<*core>
 \DeclareOption{balance}{\AtEndDocument{\let\clearpage\balanceclearpage}}
@@ -94,22 +135,39 @@
 \ProcessOptions
 %    \end{macrocode}
 %
+%\ifJAPANESE
 % \subsection{フロートパラメータ}
 % ここでは、段抜きのフロートをページ下部に置くために作成したパラメータに
 % ついて説明をする。
+%\else
+% \subsection{Float parameters}
+% Here, we explain the parameters created to place a floating float
+% at the bottom of the page.
+%\fi
 %
 % \begin{macro}{\dblbotfraction}
-% ２段組時にページ下部に占めることのできる、二段抜きフロートの割合。
+%\ifJAPANESE
+% 2段組時にページ下部に占めることのできる、二段抜きフロートの割合。
 % デフォルトは0.5、すなわちページ半分を占めることができるようにしている。
+%\else
+% Percentage of a page that may be occupied by a two-column float.
+% The default is 0.5, which means that it can occupy half of the page.
+%\fi
 %    \begin{macrocode}
 \newcommand\dblbotfraction{0.5}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\c@dblbotnumber}
+%\ifJAPANESE
 % ページ下部に入れることのできる、二段抜きフロートの数。
 % デフォルトでは、二つの図を置くことができるようにしている。
 % |\c@dblbotnumber|はカウンタ|dblnumber|の内部形式。
+%\else
+% Number of two-column floats that can be placed at the bottom of the page.
+% By default this is set to 2.
+% |\c@dblbotnumber| is the internal format of the counter |dblnumber|.
+%\fi
 %    \begin{macrocode}
 \newcount\c@dblbotnumber
 \setcounter{dblbotnumber}{2}
@@ -118,10 +176,17 @@
 %
 % \begin{macro}{\@dblbotroom}
 % \begin{macro}{\@dblbotnum}
+%\ifJAPANESE
 % |\@dblbotroom|は、ページ下部に占めることのできる、
 % 二段抜きフロートの割合を示す長さ変数。
 % |\@dblbotnum|は、ページ下部に入れることのできる、
 % 二段抜きフロートの数を保持するカウンタ。
+%\else
+% |\@dblbotroom|: Length variable indicating the percentage
+% of the page a two-column float can occupy at the bottom of the page.
+% |\@dblbotnum|: Counter that holds the number of two-column floats
+% that can be placed at the bottom of the page.
+%\fi
 %    \begin{macrocode}
 \newdimen\@dblbotroom
 \newcount\@dblbotnum
@@ -130,8 +195,12 @@
 % \end{macro}
 %
 % \begin{macro}{\@dblfloatplacement}
+%\ifJAPANESE
 % 二段組用のフロートパラメータを設定するマクロを、新たに追加したパラメータ
 % も設定するように再定義する。
+%\else
+% Redefine this macro to set the newly added parameters.
+%\fi
 %    \begin{macrocode}
 \def\@dblfloatplacement{%
    \global\@dbltopnum\c@dbltopnumber
@@ -149,25 +218,43 @@
 %    \end{macrocode}
 % \end{macro}
 %
+%\ifJAPANESE
 % \subsection{フロートリストへの登録}
-% 二段抜きフロートの定義は、クラスファイルで、つぎのようにして行なわれる。
+% 二段抜きフロートの定義は、クラスファイルで次のようにして行なわれる。
+%\else
+% \subsection{Define float lists}
+% The definition of a double column float should be done in
+% a class file, as follows.
+%\fi
 %\begin{verbatim}
 %    \newenvironment{figure*}
 %                   {\@dblfloat{figure}}
 %                   {\end@dblfloat}
 %\end{verbatim}
+%\ifJAPANESE
 % 文章中で|figure*|環境で囲まれた部分は、フロート保持用のリストに登録される。
 % この節では、段抜きフロートをページ下部にも置けるようにするために拡張した
 % マクロについて説明をする。
-%
+%\else
+% The content of |figure*| environment is registered in the two-column float
+% holding list.
+% In this section, we expand it so that you can put a float at the bottom of the page.
+%\fi
 % \begin{macro}{\@dblbotlist}
 % \begin{macro}{\L@toplist}
 % \begin{macro}{\R@toplist}
 % \begin{macro}{\L@botlist}
 % \begin{macro}{\R@botlist}
+%\ifJAPANESE
 % 二段組のページ下部に置くフロートを保持するために|\@dblbotlist|を追加する。
 % また、カラムの上下に置くフロート用には、左側と右側で区別をするため、
 % |\L@toplist|, |\R@toplist|, |\L@botlist|, |\R@botlist|を追加する。
+%\else
+% Add the |\@dblbotlist| to hold the float to be placed at the bottom of
+% the two-column page.
+% In addition, for floats to be placed above and below the column,
+% distinguish between the left side and the right side,
+%\fi
 %    \begin{macrocode}
 \gdef\@dblbotlist{}
 \gdef\L@toplist{}
@@ -184,9 +271,15 @@
 % \begin{macro}{\@dblfloat}
 % \begin{macro}{\@dbflt}
 % \begin{macro}{\end@dblfloat}
+%\ifJAPANESE
 % |\@dblfloat|から呼び出される、|\@dbflt|を再定義し、位置指定が省略された
 % ときのパラメータを``tb''とする。また、|\end@dblfloat|を|\end@float|にして、
 % 現在ページの下部にフロートを置けるようにする。
+%\else
+% |\@dblfloat|, |\@dbflt| is redefined so that the default position
+% argument is set to ``tb''. Also, set |\end@dblfloat| to |\end@float| to
+% allow floats to be placed at the bottom of the page.
+%\fi
 %    \begin{macrocode}
 \def\@dblfloat{%
   \if@twocolumn\let\reserved@a\@dbflt\else\let\reserved@a\@float\fi
@@ -200,7 +293,8 @@
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{\addtocurcol}
+% \begin{macro}{\@addtocurcol}
+%\ifJAPANESE
 % |\@xdblfloat|から呼び出された、|\@xfloat|は位置指定オプションの評価を行ない、
 % フロートオブジェクトの組み立てを開始する。
 % フロートオブジェクトの組み立ては|\end@float|で終了する。
@@ -208,18 +302,38 @@
 % この値での|\output|ルーチンは|\@specialoutput|を起動する。
 % |\@specialoutput|は|\@addtocurcol|を呼び出し、フロートの内容を現在ページに
 % 出力できるのならば出力をする。そうでなければ、別の可能性を探る。
+%\else
+% Called from | @xdblfloat|, |\@xfloat| evaluates the position specification option,
+% and start building the float object.
+% Assembling a float object ends with |\end@float|.
+% |\end@float| starts the |\output| routine with a penalty value of $-10004$.
+% The |\output| routine with this value invokes |\@specialoutput|.
+% |\@specialoutput| calls |\@addtocurcol| to move the contents of the float to
+% the current page.
+% If it can be output, then do so; otherwise we explore another possibility.
+%\fi
 %    \begin{macrocode}
 \def\@addtocurcol{%
 %    \end{macrocode}
+%\ifJAPANESE
 % このパッケージの場合、段抜きのフロートが渡される可能性があるので、まず、
 % それをチェックする。フロートの幅がカラム幅よりも大きい場合は、強制的に
 % 段抜きフロートとして扱う。
+%\else
+% In the case of this package, there is a possibility that a double column
+% float may be passed, so check it. If the width of the float is larger
+% than the column width, forcibly treat as starred, double column float.
+%\fi
 %    \begin{macrocode}
   \ifdim\wd\@currbox>\columnwidth
     \@addtodblcol
   \else
 %    \end{macrocode}
+%\ifJAPANESE
 % それ以外の場合は、元の動作とほとんど同じである。
+%\else
+% Otherwise, it is almost the same as the original version.
+%\fi
 %    \begin{macrocode}
     \@insertfalse
     \@setfloattypecounts
@@ -239,12 +353,16 @@
             \if@test
             \else
 %    \end{macrocode}
+%\ifJAPANESE
 % ページ下部のフロートを保持しているフロートリストの名前が異なる。
+%\else
+% The only difference from \LaTeX\ is the name of float list,
+%\fi
 %    \begin{macrocode}
               \@bitor\@currtype{\L@botlist\R@botlist}%
               \if@test
                 \@addtobot
-              \else 
+              \else
                 \ifodd\count\@currbox
                   \advance\@reqcolroom\intextsep
                   \ifdim\@colroom>\@reqcolroom
@@ -260,11 +378,11 @@
                       \addpenalty \interlinepenalty
                     \fi
                     \vskip\intextsep
-                    \box\@currbox 
+                    \box\@currbox
                     \penalty\interlinepenalty
                     \vskip\intextsep
                     \ifnum\outputpenalty<-\@Mii \vskip-\parskip \fi
-                    \outputpenalty\z@ 
+                    \outputpenalty\z@
                     \@inserttrue
                   \fi
                 \fi
@@ -282,9 +400,13 @@
 % \end{macro}
 %
 % \begin{macro}{\@addtotoporbot}
+%\ifJAPANESE
 % フロートを保持しているリスト変数の修正。
 % \changes{v2.3}{2000/12/20}{%
 %    タイプミスの修正と\cs{@flcheckspace}の呼び出しを変更}
+%\else
+% Update variables holding float lists.
+%\fi
 %    \begin{macrocode}
 \def\@addtotoporbot{%
   \@getfpsbit \tw@
@@ -312,8 +434,12 @@
 % \end{macro}
 %
 % \begin{macro}{\@addtobot}
+%\ifJAPANESE
 % フロートを保持しているリスト変数の修正。
 % \changes{v2.3}{2000/12/20}{\cs{@flcheckspace}の呼び出しを変更}
+%\else
+% Update variables holding float lists.
+%\fi
 %    \begin{macrocode}
 \def\@addtobot{%
   \@getfpsbit 4\relax
@@ -339,9 +465,16 @@
 %
 % \begin{macro}{\org@addtonextcol}
 % \begin{macro}{\@addtonextcol}
-% 挿入に失敗したフロートや`p'指定のフロートを出力するのに、
+%\ifJAPANESE
+% これらは、挿入に失敗したフロートや`p'指定のフロートを出力するために、
 % |\@startcolumn|で用いられる。このパッケージでは、カラム幅よりも大きい幅を
 % 持つフロートに対しては、段抜きフロートリストとして出力するようにしている。
+%\else
+% These macros are used inside |\@startcolumn|, to output a float
+% that failed to be inserted or a float specified by `p'.
+% In this package, a width larger than the column width
+% signals the float should be added to the double column float list.
+%\fi
 %    \begin{macrocode}
 \let\org@addtonextcol\@addtonextcol
 \def\@addtonextcol{%
@@ -356,6 +489,7 @@
 % \end{macro}
 %
 % \begin{macro}{\@addtodblcol}
+%\ifJAPANESE
 % |\@addtodblcol|マクロは、フロートオブジェクトが現在ページに入るかどうか
 % を確認し、入るのであれば|\@addtodbltoporbot|を呼び出す。そうでなければ、
 % |\@dbldeferlist|に登録する。
@@ -363,6 +497,15 @@
 % まず|@insert|フラグを偽にする。そして、フロートタイプを|\@fpstype|に得る。
 % フロートタイプが8または24の場合、位置オプションは`!p'か`p'だけであるので、
 % 無条件に|\@dbldeferlist|に加える。
+%\else
+% The |\@addtodblcol| macro determines whether the float object fits in
+% the current page and calls |\@addtodbltoporbot| if it would fit.
+% Otherwise, adds to |\@dbldeferlist|.
+%
+% First set |@insert| flag to false, obtain the float type as |\@fpstype|.
+% If the float type is 8 or 24, the position option is only `!p 'or `p', so
+% unconditionally add to |\@dbldeferlist|.
+%\fi
 %    \begin{macrocode}
 \def\@addtodblcol{%
   \begingroup
@@ -373,10 +516,17 @@
     \ifnum\@fpstype=24 % is only `p'
     \else
 %    \end{macrocode}
+%\ifJAPANESE
 % そうでなければ、同タイプのフロートで未出力のものがあるかどうかを確認する。
 % 同タイプのフロートでまだ出力していないものがある場合は、現在のフロートを
 % 出力しない。ただし、同タイプであってもカラム幅のフロートについては考慮
 % しない。出力することができるのならば、|\@addtodblbotortop|を呼び出す。
+%\else
+% Otherwise, check whether there are unplaced ones of the same float type.
+% If there is a float of the same type that has not been output yet,
+% do not output. However, even with the same type, consider the float column width.
+% If you can output it, call |\@addtodblbotortop|.
+%\fi
 %    \begin{macrocode}
       \@bitor\@currtype{\@dbldeferlist}
       %\@bitor\@currtype{\@deferlist\@dbldeferlist}
@@ -397,7 +547,12 @@
 % \end{macro}
 %
 % \begin{macro}{\@addtodbltoporbot}
+%\ifJAPANESE
 % まず、`t'の指定があるかと、ページ上部に入れる数を越えていないかを確認する。
+%\else
+% First, check whether there is a specification of `t',
+% and whether it exceeds the number allowed at the top of the page.
+%\fi
 %    \begin{macrocode}
 \def\@addtodbltoporbot{%
   \@getfpsbit \tw@
@@ -405,22 +560,39 @@
     \@flsetnum\@dbltopnum
     \ifnum\@dbltopnum>\z@
 %    \end{macrocode}
+%\ifJAPANESE
 % そして、ページ上部あるいは下部に同タイプのフロートが出力される可能性が
 % あるのかを調べる。二段組フロートは一段組フロートの上部に置かれることに注意。
+%\else
+% Then, check whether the same type of float may be output at the top or
+% bottom of the page.
+% Note that two-column floats are placed on the top of a one-column floats.
+%\fi
 %    \begin{macrocode}
       \@bitor\@currtype{%
          \L@toplist\R@toplist\L@botlist\R@botlist\@dblbotlist}
       \if@test
       \else
 %    \end{macrocode}
+%\ifJAPANESE
 % 配置可能ならば、出力するだけのスペースがあるのかを確認する。
+%\else
+% If possible, check if there is enough space to output the float.
+%\fi
 %    \begin{macrocode}
         \@tempswafalse
         \@dblflcheckspace \@dbltoproom \@dbltoplist
 %    \end{macrocode}
+%\ifJAPANESE
 % スペースがあれば、段抜きフロートが上部に占めることのできる高さから、
 % その分を引く。また、上部に入れる段抜きフロートの数を減らし、
 % 上部段抜き用のフロートリストに登録をする。
+%\else
+% If there is a space, subtract the height of the float from
+% the space available for top floats. Also, reduce the number of
+% starred floats to put in the top,
+% and update the float list for double column top floats.
+%\fi
 %    \begin{macrocode}
         \if@tempswa
           \@tempdima-\ht\@currbox
@@ -430,14 +602,23 @@
           \global\advance\@dbltopnum\m@ne
           \@cons\@dbltoplist\@currbox
 %    \end{macrocode}
+%\ifJAPANESE
 % 左カラムのときは、カラムの高さ|\@colroom|からフロート分を引く。
+%\else
+% For the left column, subtract the float from the column height |\@colroom|.
+%\fi
 %    \begin{macrocode}
           \if@firstcolumn
             \advance\@colroom\@tempdima
             \global\advance\@colroom\maxdepth
 %    \end{macrocode}
+%\ifJAPANESE
 % 右カラムのときは、新規の段抜きフロート分だけでなく、これを挿入すること
 % によって、左カラムから移動してくるテキストの高さも引く。
+%\else
+% In the case of the right column, insert not only the new float,
+% also the height of the text moved from the left column is decreased.
+%\fi
 %    \begin{macrocode}
           \else
             \@tempdima\textheight
@@ -450,7 +631,11 @@
             \global\advance\@colroom-\dp\z@
           \fi
 %    \end{macrocode}
+%\ifJAPANESE
 % 最後に、|@insert|フラグを真にする。
+%\else
+% Finally, set the |@insert| flag to true.
+%\fi
 %    \begin{macrocode}
           \@inserttrue
         \fi
@@ -463,9 +648,16 @@
 % \end{macro}
 %
 % \begin{macro}{\@addtodblbot}
+%\ifJAPANESE
 % ページ下部に段抜きフロートを置くときも、上部と同じである。
 % ただし、二段組フロートは最下部に置かれるので、他の出力用リストを調べる
 % 必要はないことが異なる。
+%\else
+% Placing a two-column float at the bottom of the page is
+% similar to the preceding section.
+% However, because a two-column float is placed at the very bottom,
+% we don't have to examine other output lists.
+%\fi
 %    \begin{macrocode}
 \def\@addtodblbot{%
   \@getfpsbit 4\relax
@@ -501,17 +693,27 @@
 %    \end{macrocode}
 % \end{macro}
 %
+%\ifJAPANESE
 % \subsection{フロートの高さを計算するマクロ}
+%\else
+% \subsection{Macro to calculate float height}
+%\fi
 %
 % \begin{macro}{\@floatht}
+%\ifJAPANESE
 % |\@floatht|は、出力リストに格納されているフロートの高さを格納するのに用いる。
+%\else
+% |\@floatht| is used to store the float height stored in the output list.
+%\fi
 %    \begin{macrocode}
 \global\newdimen\@floatht \@floatht\z@
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@flcheckspace}
+%\ifJAPANESE
 % \changes{v2.3}{2000/12/20}{状況別に場合わけするようにした}
+%\fi
 %    \begin{macrocode}
 \def \@flcheckspace #1#2#3#4{%
    \advance \@reqcolroom
@@ -538,9 +740,15 @@
 % \end{macro}
 %
 % \begin{macro}{\@dblflcheckspace}
+%\ifJAPANESE
 % 段抜きフロートがページ上部あるいは下部に占めることのできる割合を越えて
 % いないかをチェックする。越えていなければ|\@tempswa|を真にする。
 % \changes{v2.6}{2003/05/15}{\cs{@fstype}を\cs{@fstyle}とタイプミスしていた}
+%\else
+% Check if the percentage that can be occupied by floats
+% on the top or bottom of the page has been exceeded.
+% If not, |\@tempswa| will be made true.
+%\fi
 %    \begin{macrocode}
 \def\@dblflcheckspace#1#2{%
   \@tempdima=#1\relax
@@ -561,12 +769,20 @@
 % \end{macro}
 %
 % \begin{macro}{\@checkdblspace}
+%\ifJAPANESE
 % 段抜きフロートと段抜きフロート間スペース（あるいは段抜きフロートとテキストと
 % の間のスペース）を入れる余裕があるかを調べる。
 %
 % まず、現在、組み立ててあるテキストの高さと、最小限入らなくてはならない
 % テキストの量とを比較し、大きいほうを|\@tempdima|に格納する。
 % 右カラムにいるときは、左カラムのテキストの高さも加える。
+%\else
+% Check whether the float would fit in the space allocated to text page floats.
+%
+% First, compare the height of text currently assembled with the amount of text
+% that must be minimized, and store the larger one in |\@tempdima|.
+% If you are in the right column, also add the height of the text in the left column.
+%\fi
 %    \begin{macrocode}
 \def\@checkdblspace{%
    \@tempdima\@pageht\advance\@tempdima\@pagedp
@@ -577,23 +793,39 @@
      \advance\@tempdima\dp\@leftcolumn
    \fi
 %    \end{macrocode}
+%\ifJAPANESE
 % そして、出力する予定のカラム幅フロートと段抜きフロートの高さを加える。
 % このとき、段抜き用のフロートの高さは二倍する。
+%\else
+% Then add the height of the column width float and
+% two-column float that are to be output.
+% At this time, double the height of the two-column float.
+%\fi
 %    \begin{macrocode}
    \L@chkfloatht\advance\@tempdima\@floatht
    \R@chkfloatht\advance\@tempdima\@floatht
    \@chkdblfloatht\advance\@tempdima\tw@\@floatht
 %    \end{macrocode}
+%\ifJAPANESE
 % それから、現在のフロートの高さと必要なスペースを加える。
 % このときも、それらの高さを二倍する。
+%\else
+% Then add the current float height and required space.
+% Again, double their heights.
+%\fi
 %    \begin{macrocode}
    \@tempdimb\ht\@currbox\advance\@tempdimb\dp\@currbox
    \advance\@tempdimb
       \ifdim\@floatht>\z@ \dbltextfloatsep\else\dblfloatsep\fi
    \multiply\@tempdimb\tw@ \advance\@tempdima\@tempdimb
 %    \end{macrocode}
-% これらすべての要素分の高さが|\textheight|の２倍よりも小さければ、
+%\ifJAPANESE
+% これらすべての要素分の高さが|\textheight|の2倍よりも小さければ、
 % 現在のフロートを置くことができると判断する。
+%\else
+% If the height of all these elements is less than twice the |\textheight|,
+% we can place the current float.
+%\fi
 %    \begin{macrocode}
    \ifdim\@tempdima>\tw@\textheight
      \@tempswafalse
@@ -606,9 +838,15 @@
 %
 % \begin{macro}{\tmp@comflelt}
 % \begin{macro}{\tmp@comdblflelt}
+%\ifJAPANESE
 % 出力リストに格納されているフロートの高さを計るために用いる。
 % それぞれ、|\@comfelt|, |\@comdblflelt|と同じだが、フロートの内容が
 % 失われないように|\copy|をしているのが異なる。
+%\else
+% Used to measure the height of the float stored in the output list.
+% Almost the same as |\@comfelt|, |\@comdblflelt| respectively, but
+% use |\copy| so that the original box is not lost.
+%\fi
 %    \begin{macrocode}
 \def\tmp@comflelt#1{%
   \setbox\@tempboxa
@@ -624,8 +862,14 @@
 %
 % \begin{macro}{\L@chkfloatht}
 % \begin{macro}{\R@chkfloatht}
+%\ifJAPANESE
 % それぞれ、左カラムと右カラムに出力するフロートの高さを計算するのに用いる。
 % 計算結果は|\@floatht|に格納する。
+%\else
+% Used to calculate the height of the float to be output to the left and
+% right column, respectively.
+% The calculation result is stored in |\@floatht|.
+%\fi
 %    \begin{macrocode}
 \def\L@chkfloatht{\@floatht\z@
   \ifx\L@toplist\@empty\else
@@ -666,8 +910,13 @@
 % \end{macro}
 %
 % \begin{macro}{\@chkdblfloatht}
+%\ifJAPANESE
 % ページ上部と下部に出力する段抜きフロートの高さを計算し、
 % 結果を|\@floatht|に格納する。
+%\else
+% Calculate the height of the double float output on the top and bottom
+% of the page, store the result in |\@floatht|.
+%\fi
 %    \begin{macrocode}
 \def\@chkdblfloatht{\@floatht\z@
   \ifx\@dbltoplist\@empty\else
@@ -695,28 +944,45 @@
 %    \end{macrocode}
 % \end{macro}
 %
+%\ifJAPANESE
 % \subsection{フロートとテキストのマージ}
+%\else
+% \subsection{Merging float and text}
+%\fi
 %
 % \begin{macro}{\@fixht}
+%\ifJAPANESE
 % |\@fixht|は、左カラムの高さを格納するのに用いる。
-%    \begin{macrocode}
+%\else
+% |\@fixht| is used to store the height of the left column.
+%\fi
+%    \begin{macrocode}%
 \global\newdimen\@fixht
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@rightfixht}
+%\ifJAPANESE
 % \emph{日本語\TeX{}開発コミュニティによる追加}：
 % |\@rightfixht|は、右カラムの高さを格納するのに用いる。
 % \changes{v2.8}{2017/05/01}{\cs{@rightfixht}を追加}
+%\else
+% \emph{Added by the Japanese \TeX\ development community}:
+% |\@rightfixht| is used to store the height of the right column.
+%\fi
 %    \begin{macrocode}
 \global\newdimen\@rightfixht
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@combinefloats}
+%\ifJAPANESE
 % \changes{v2.4}{2001/07/23}{\cs{boxmaxdepth}を\cs{maxdepth}にしないようにした}
 % |\@combinefloats|は、カラム単位で、テキストとフロートをマージする。
 % このマクロは右カラムのときに実行する。
+%\else
+% This macro is executed in the right column.
+%\fi
 %    \begin{macrocode}
 \def\@combinefloats{%
   %%\boxmaxdepth\maxdepth
@@ -724,37 +990,61 @@
     \if@firstcolumn
     \else
 %    \end{macrocode}
+%\ifJAPANESE
 % 左カラムのテキスト、上下のカラム幅フロート、上下の段抜きフロートの高さの
 % 合計を|\@fixht|に格納する。
+%\else
+% Store the total height of left column text, upper and lower column width float,
+% upper and lower double column float height in |\@fixht|.
+%\fi
 %    \begin{macrocode}
       \@fixht\ht\@leftcolumn \advance\@fixht\dp\@leftcolumn
       \@chkdblfloatht \@tempdima\@floatht
       \L@chkfloatht \advance\@tempdima\@floatht
       \advance\@fixht\@tempdima
 %    \end{macrocode}
+%\ifJAPANESE
 % |\@fixht|の高さが|\textheight|よりも大きい場合、テキストを分割し、入らない
 % 部分を右カラムに移す。
+%\else
+% If |\@fixht| is greater than |\textheight|, split the text and
+% transfer the remaining to the right column.
+%\fi
 %    \begin{macrocode}
       \ifdim\@fixht>\textheight
 %    \end{macrocode}
+%\ifJAPANESE
 % 左カラムに残す部分の高さを|\@fixht|に格納する。
+%\else
+% Stores the height of the part left in the left column in |\@fixht|.
+%\fi
 %    \begin{macrocode}
         \@fixht\textheight
         \advance\@fixht-\@tempdima
         \advance\@fixht\maxdepth
 %    \end{macrocode}
-% |\@fixht|分のテキストをボックス０に格納する。
+%\ifJAPANESE
+% |\@fixht|分のテキストをボックス0に格納する。
+%\else
+% Store the text of height |\@fixht| in box 0.
+%\fi
 %    \begin{macrocode}
         \vbadness=\@M \splittopskip=\topskip \splitmaxdepth=\maxdepth
         \setbox\z@=\vsplit\@leftcolumn to\@fixht
 %    \end{macrocode}
+%\ifJAPANESE
 % 移動する部分は|\@leftcolumn|に残っているので、
 % それを右カラム（|\@outputbox|）に入れる。
-% また、ボックス０の内容を左カラムに戻す。
+% また、ボックス0の内容を左カラムに戻す。
 % \changes{v2.4}{2001/02/19}{行間が揃わない部分を修正}
 % \changes{v2.4}{2001/02/19}{柱が出ないのを修正}
 % \changes{v2.8}{2017/05/01}{\cs{@outputbox}を作るときの
 %    \texttt{to \cs{@fixht}}の高さ指定をやめた}
+%\else
+% Since the part to be moved remains in |\@leftcolumn|,
+% place it in the right column (|\@outputput|).
+% Also, return the contents of box 0 to the left column.
+%\fi
 %    \begin{macrocode}
         \advance\@fixht-\maxdepth
         \@tempdima\baselineskip \advance\@tempdima-\topskip
@@ -764,9 +1054,12 @@
               \unvbox\@leftcolumn\vskip\@tempdima
             \fi\relax
             \unvbox\@outputbox}% \vss moved from here
-%    \end{macrocode}
+%    \end{macrocode}0
+%\ifJAPANESE
 % \changes{v2.5}{2001/09/14}{\cs{vsplit}時、infiniteエラーになるのを修正}
 % |\@leftcolumn|を作成するときに用いていた|\vss|が
+%
+% The |\vss| used to create |\@leftcolumn|
 %\begin{verbatim}
 % ! Infinite glue shrinkage found in box being split.
 %\end{verbatim}
@@ -776,20 +1069,37 @@
 % この場所のすぐ上にあるコードの|\unvbox\@outputbox|の直後にあった|vss|を
 % こちらに持ってきました。
 % \changes{v2.8}{2017/05/01}{\cs{vss}の位置を移動}
+%\else
+% \emph{Modified by the Japanese \TeX{} development community}:
+% the |\vss| that was immediately after |\unvbox\@outputbox|
+% of the code immediately above this location was moved here.
+%\fi
 %    \begin{macrocode}
         \setbox\@leftcolumn=\vbox to\@fixht{\unvbox\z@\vss}% to here (2017/05/01)
       \fi
 %    \end{macrocode}
+%\ifJAPANESE
 % 左カラムのテキストサイズに左カラムに入るフロートの高さを加えることで、
 % 左カラムの高さを|\@fixht|に格納します。
+%\else
+% Stores the height of the left column in |\@fixht|,
+% by adding the height of the float that enters the left column to
+% the text height of the left column.
+%\fi
 %    \begin{macrocode}
       \@fixht\ht\@leftcolumn
         \advance\@fixht\dp\@leftcolumn \advance\@fixht\@floatht
 %    \end{macrocode}
+%\ifJAPANESE
 % \emph{日本語\TeX{}開発コミュニティによる追加}：
 % 右カラムについても同様に処理します。これで、古くからあった
 % 右カラムとフロートが重なるバグを解消しました。
 % \changes{v2.8}{2017/05/01}{右カラム用の処理を丸ごと追加}
+%\else
+% \emph {Added by the Japanese \TeX\ development community}:
+% Process the right column as well.
+% Fixed a longstanding bug where the right column overlapped with the float.
+%\fi
 %    \begin{macrocode}
       \@rightfixht\ht\@outputbox \advance\@rightfixht\dp\@outputbox
       \@chkdblfloatht \@tempdima\@floatht
@@ -808,7 +1118,11 @@
       \@rightfixht\ht\@outputbox
         \advance\@rightfixht\dp\@outputbox \advance\@rightfixht\@floatht
 %    \end{macrocode}
+%\ifJAPANESE
 % 左右、それぞれテキストとカラム幅フロートを組み立てる。
+%\else
+% Assemble text and column width floats, for left and right respectively.
+%\fi
 %    \begin{macrocode}
       \ifx\L@toplist\@empty\else\L@cflt\fi
       \ifx\L@botlist\@empty\else\L@cflb\fi
@@ -816,7 +1130,11 @@
       \ifx\R@botlist\@empty\else\R@cflb\fi
     \fi
 %    \end{macrocode}
+%\ifJAPANESE
 % 二段組でないときは従来どおりの動作をする。
+%\else
+% When it is not a two-column float, it operates as usual.
+%\fi
 %    \begin{macrocode}
   \else
       \ifx\@toplist\@empty\else\@cflt\fi
@@ -830,6 +1148,7 @@
 % \begin{macro}{\L@cflb}
 % \begin{macro}{\R@cflt}
 % \begin{macro}{\R@cflb}
+%\ifJAPANESE
 % 左カラムと右カラムを組み立てるのに用いる。
 %
 % \emph{日本語\TeX{}開発コミュニティによる追加}：
@@ -838,6 +1157,14 @@
 % \changes{v2.3}{2000/12/20}{\cs{gdef}を\cs{global}\cs{let}に変更}
 % \changes{v2.8}{2017/05/01}{右カラムでは\cs{@rightfixht}の高さで
 %    組み立て、\cs{@colht}も更新するようにした}
+%\else
+% Used to assemble left and right columns.
+%
+% \emph {Added by the Japanese \TeX\ development community}:
+% Update the height of |\@fixht| in the left column,
+% |\@rightfixht| in the right column.
+% Also update |\@colht| to these heights.
+%\fi
 %    \begin{macrocode}
 \def\L@cflt{%
   \let\@elt\@comflelt\setbox\@tempboxa\vbox{}\L@toplist
@@ -886,8 +1213,13 @@
 % \end{macro}
 %
 % \begin{macro}{\@combinedblfloats}
+%\ifJAPANESE
 % テキストと段抜きフロートをマージする。このパッケージでは、ページ下部の
 % 段抜きフロートもマージするように拡張している。
+%\else
+% Merge text and float.
+% In this package, double column float at the bottom of the page are also merged.
+%\fi
 %    \begin{macrocode}
 %\def\@comdblflelt#1{\setbox\@tempboxa
 %      \vbox{\unvbox\@tempboxa\box#1\vskip\dblfloatsep}}
@@ -923,25 +1255,44 @@
 %    \end{macrocode}
 % \end{macro}
 %
+%\ifJAPANESE
 % \subsection{二段組の出力}
+%\else
+% \subsection{Output of two columns}
+%\fi
 %
 % \begin{macro}{\if@balance}
+%\ifJAPANESE
 % 左右のカラムを均等にして出力するかどうかを示すフラグ。
+%\else
+% Flag indicating whether the left and right columns are to be balanced.
+%\fi
 %    \begin{macrocode}
 \newif\if@balance \@balancefalse
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@outputdblcol}
+%\ifJAPANESE
 % 左右のカラムを連結し、出力するのは|\@outputdblcol|が行なう。
 % このパッケージでは、左右のカラムを均等に分割するためのルーチンを加えてある。
+%\else
+% Concatenate left and right columns and output them by |\@outputdblcol|.
+% In this package, a routine for equally dividing the left and right
+% columns has been added.
+%\fi
 %    \begin{macrocode}
 \newbox\@combinebox
 %    \end{macrocode}
+%\ifJAPANESE
 % 左カラムを組み立てただけの時点では、それを|\@leftcolumn|に格納するだけで
 % 出力はしない。
 % \changes{v2.4}{2001/02/19}{最終ページで左右の行間が揃わない部分を修正}
 % \changes{v2.4}{2001/02/19}{柱が出ないのを修正}
+%\else
+% Just store the assembled left column in |\@leftcolumn|,
+% do not output it yet.
+%\fi
 %    \begin{macrocode}
 \def\@outputdblcol{%
   \if@firstcolumn
@@ -952,7 +1303,11 @@
   \else
     \global\@firstcolumntrue
 %    \end{macrocode}
+%\ifJAPANESE
 % ここからが左右カラムを均等に分割するコード。
+%\else
+% Here starts the code that balances the left and right columns.
+%\fi
 %    \begin{macrocode}
     \if@balance
       \@tempdima\baselineskip
@@ -968,7 +1323,11 @@
       \setbox\@leftcolumn=\vtop{\unvbox\@leftcolumn}
     \fi
 %    \end{macrocode}
+%\ifJAPANESE
 % 整形する。
+%\else
+% Format it.
+%\fi
 %    \begin{macrocode}
     \@tempdima\ht\@leftcolumn
     \setbox\@outputbox\vbox to\@tempdima{%
@@ -997,10 +1356,17 @@
 % \end{macro}
 %
 % \begin{macro}{\@startdblcolumn}
+%\ifJAPANESE
 % 二段組を開始するとき、まだ出力をしていないフロートを出力する。
-% それらは|\sdblcolelt|を通じて、|\@addtonextcol|で出力される。
+% それらは|\@sdblcolelt|を通じて、|\@addtonextcol|で出力される。
 % このパッケージでは、カラムの高さを|\textheight|からフロートの高さを
 % 引いたものに設定するように再定義する。
+%\else
+% When starting a two-column page, output a float that has not yet been output.
+% They are output by |\@addtonextcol| via |\@sdblcolelt|.
+% In this package, update the height of the column
+% by subtracting the height of the float from |\textheight|.
+%\fi
 %    \begin{macrocode}
 \def\@startdblcolumn{%
   \global\@colht\textheight
@@ -1021,7 +1387,11 @@
 % \end{macro}
 %
 % \begin{macro}{\@doclearpage}
+%\ifJAPANESE
 % 出力フロート用リストの初期化をするために、|\@doclearpage|を再定義する。
+%\else
+% Redefine |\@doclearpage| to initialize output float list.
+%\fi
 %    \begin{macrocode}
 \def\@doclearpage{%
   \ifvoid\footins
@@ -1068,7 +1438,11 @@
 % \end{macro}
 %
 % \begin{macro}{\@topnewpage}
+%\ifJAPANESE
 % |\@dblbotroom|と|dblbotnumber|を初期化するために|\@topnewpage|を再定義する。
+%\else
+% Redefine |\@topnewpage| to initialize |\@dblbotroom| and |dblbotnumber|.
+%\fi
 %    \begin{macrocode}
 \long\def\@topnewpage[#1]{%
   %\@nodocument
@@ -1119,9 +1493,15 @@
 %
 % \begin{macro}{\balancenewpage}
 % \begin{macro}{\balanceclearpage}
+%\ifJAPANESE
 % テキストを均等に分割して出力するためのマクロ。
 % ただし、このマクロを用いた場合、そのページ内での|\newpage|や
 % |\clearpage|コマンドが無効になることに注意。
+%\else
+% Macro for evenly dividing text and outputting it.
+% However, when using this macro, |\newpage| or |\clearpage|
+% are not allowed on the current page.
+%\fi
 %    \begin{macrocode}
 \def\balancenewpage{\par\vfil\global\@balancetrue\penalty-\@M}
 \def\balanceclearpage{\balancenewpage
