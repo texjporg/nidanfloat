@@ -3,7 +3,7 @@
 %
 %  Copyright 1994 ASCII Co.
 %  Copyright (c) 2010 ASCII MEDIA WORKS
-%  Copyright (c) 2016-2017 Japanese TeX Development Community
+%  Copyright (c) 2016-2018 Japanese TeX Development Community
 %
 %  This file is part of the pLaTeX2e system (community edition).
 %  -------------------------------------------------------------
@@ -47,6 +47,8 @@
 % \changes{v2.8}{2017/05/01}{右カラム用の処理を丸ごと追加}
 % \changes{v2.8}{2017/05/01}{右カラムでは\cs{@rightfixht}の高さで
 %    組み立て、\cs{@colht}も更新するようにした}
+% \changes{v2.9}{2018/07/28}{Add English documentation
+%    (no code change; thanks David Carlisle)}
 % \fi
 %
 % \iffalse
@@ -56,7 +58,7 @@
 \ProvidesFile{nidanfloat.dtx}
 %</driver>
 %<core>\ProvidesPackage{nidanfloat}%
-  [2017/05/01 v2.8 Put double-floats at top/bottom within twocolumn mode]
+  [2018/07/28 v2.9 Put double-floats at top/bottom within twocolumn mode]
 %
 %<*driver>
 \documentclass{jltxdoc}
@@ -87,12 +89,17 @@
 % 配置可能にする。もともとp\LaTeX{}の一部として配布されていましたが、
 % 全てのフォーマットをサポートできることから、
 % 2018年以降は独立して配布することにしました。
+%
+% English documentation is available as ``nidanfloat-en.pdf''
+% (thanks David Carlisle).
 %\else
 % The package \textsf{nidanfloat} enables bottom (|b|) placement option
 % for double float in two column mode (\emph{nidan-kumi}).
 % This package was originally part of Japanese \pLaTeX,
 % and now is distributed as a separate package because
 % it supports all \LaTeX\ formats.
+%
+% 日本語版ドキュメントは``nidanfloat.pdf``です。
 %\fi
 %
 % [TODO] This package needs adjustment for \LaTeXe\ 2015/01/01 changes
